@@ -18,3 +18,8 @@ export const createTask = async (task: { title: string; priority?: string }) => 
     const response = await axiosInstance.post('/api/tasks', task);
     return response.data;
 }
+
+export const deleteTask = async (id: string) => {
+    const response = await axiosInstance.delete(`/api/tasks/${id}`)
+    return response
+}

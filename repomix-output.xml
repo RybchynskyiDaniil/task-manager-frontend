@@ -69,49 +69,6 @@ vite.config.ts
 <files>
 This section contains the contents of the repository's files.
 
-<file path="src/components/TaskForm/TaskForm.tsx">
-export interface TaskFormProp {
-  onSubmit: (title: string) => void;
-}
-
-export default function TaskForm() {
-  const handleSubmit = (formData: FormData) => {
-    const title = formData.get("title");
-    onSubmit(title);
-  };
-
-  return (
-    <form action="">
-      <input type="text" name="title" />
-      <button type="submit">create task</button>
-    </form>
-  );
-}
-</file>
-
-<file path="src/services/taskService.ts">
-import axiosInstance from '../api/axiosInstance';
-
-export interface Task {
-  _id: string;
-  title: string;
-  description?: string;
-  status: 'pending' | 'inProgress' | 'completed';
-  priority: 'low' | 'medium' | 'high';
-  dueDate?: string;
-};
-
-export const fetchTasks = async ():Promise<Task[]> => {
-    const response = await axiosInstance.get('/api/tasks');
-    return response.data.tasks;
-};
-
-export const createTask = async (task: { title: string; priority?: string }) => {
-    const response = await axiosInstance.post('/api/tasks', task);
-    return response.data;
-}
-</file>
-
 <file path=".gitignore">
 # Logs
 logs
@@ -179,43 +136,6 @@ export default defineConfig([
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-</file>
-
-<file path="package.json">
-{
-  "name": "task-manager-frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.100.10",
-    "@tanstack/react-query-devtools": "^5.100.10",
-    "axios": "^1.16.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-router-dom": "^7.15.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^24.12.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.2.1",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.5.0",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.58.2",
-    "vite": "^8.0.10"
-  }
-}
 </file>
 
 <file path="public/favicon.svg">
@@ -358,31 +278,6 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
 }
 </file>
 
-<file path="src/components/pages/TasksPage/TasksPage.tsx">
-import { useQuery } from "@tanstack/react-query";
-import { fetchTasks } from "../../../services/taskService";
-
-export default function TasksPage() {
-  const {
-    data: tasks,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: fetchTasks,
-  });
-  if (isLoading) return <p>Loading tasks...</p>;
-  if (isError) return <p>Something went wrong</p>;
-  return (
-    <ul>
-      {tasks?.map((task) => (
-        <li key={task._id}>{task.title}</li>
-      ))}
-    </ul>
-  );
-}
-</file>
-
 <file path="src/components/PrivateRoute/PrivateRoute.tsx">
 import { refresh } from "../../services/authService";
 import { useState, useEffect } from "react";
@@ -432,6 +327,26 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
       <input type="email" name="email" />
       <input type="password" name="password" />
       <button type="submit">Create Account</button>
+    </form>
+  );
+}
+</file>
+
+<file path="src/components/TaskForm/TaskForm.tsx">
+export interface TaskFormProp {
+  onSubmit: (title: string) => void;
+}
+
+export default function TaskForm({ onSubmit }: TaskFormProp) {
+  const handleSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+    onSubmit(title);
+  };
+
+  return (
+    <form action={handleSubmit}>
+      <input type="text" name="title" />
+      <button type="submit">create task</button>
     </form>
   );
 }
@@ -551,29 +466,6 @@ code {
 }
 </file>
 
-<file path="src/main.tsx">
-import { StrictMode } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { createRoot } from "react-dom/client";
-import App from "./components/app/App";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const queryClient = new QueryClient();
-
-createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </BrowserRouter>
-  </StrictMode>,
-);
-</file>
-
 <file path="src/services/authService.ts">
 import axiosInstance from "../api/axiosInstance";
 
@@ -597,6 +489,34 @@ export const register = async (name: string, email: string, password: string) =>
 export const refresh = async () => {
     const response = await axiosInstance.post('/api/auth/refresh');
     return response.data;
+}
+</file>
+
+<file path="src/services/taskService.ts">
+import axiosInstance from '../api/axiosInstance';
+
+export interface Task {
+  _id: string;
+  title: string;
+  description?: string;
+  status: 'pending' | 'inProgress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
+};
+
+export const fetchTasks = async ():Promise<Task[]> => {
+    const response = await axiosInstance.get('/api/tasks');
+    return response.data.tasks;
+};
+
+export const createTask = async (task: { title: string; priority?: string }) => {
+    const response = await axiosInstance.post('/api/tasks', task);
+    return response.data;
+}
+
+export const deleteTask = async (id: string) => {
+    const response = await axiosInstance.delete(`/api/tasks/${id}`)
+    return response
 }
 </file>
 
@@ -673,6 +593,43 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
 })
+</file>
+
+<file path="package.json">
+{
+  "name": "task-manager-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-query-devtools": "^5.100.10",
+    "axios": "^1.16.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.15.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.2",
+    "vite": "^8.0.10"
+  }
+}
 </file>
 
 <file path="src/components/app/App.tsx">
@@ -769,6 +726,86 @@ export default function RegisterPage() {
     </>
   );
 }
+</file>
+
+<file path="src/components/pages/TasksPage/TasksPage.tsx">
+import { useQuery } from "@tanstack/react-query";
+import { deleteTask, fetchTasks } from "../../../services/taskService";
+import TaskForm from "../../TaskForm/TaskForm";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createTask } from "../../../services/taskService";
+
+export default function TasksPage() {
+  const queryClient = useQueryClient();
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: fetchTasks,
+  });
+  const mutation = useMutation({
+    mutationFn: (title: string) => createTask({ title }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+  const handleCreateTask = (title: string) => {
+    mutation.mutate(title);
+  };
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteTask(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+
+  const handleDeleteTask = (id: string) => {
+    deleteMutation.mutate(id);
+  };
+
+  if (isLoading) return <p>Loading tasks...</p>;
+  if (isError) return <p>Something went wrong</p>;
+
+  return (
+    <>
+      <TaskForm onSubmit={handleCreateTask} />
+      <ul>
+        {tasks?.map((task) => (
+          <li key={task._id}>
+            {task.title}
+            <button onClick={() => handleDeleteTask}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+</file>
+
+<file path="src/main.tsx">
+import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import App from "./components/app/App";
+import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root") as HTMLElement).render(
+  <StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </StrictMode>,
+);
 </file>
 
 </files>
