@@ -2,6 +2,7 @@ import LoginForm from "../../LoginForm/LoginForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/authService";
+import css from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,12 @@ export default function LoginPage() {
   return (
     <>
       <LoginForm onSubmit={handleLogin} />
+      <button
+        className={css.secondaryButton}
+        onClick={() => navigate("/register")}
+      >
+        Create Account
+      </button>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Invalid email or password</p>}
     </>

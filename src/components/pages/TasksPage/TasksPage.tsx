@@ -1,7 +1,12 @@
-import { deleteTask, fetchTasks } from "../../../services/taskService";
+import {
+  deleteTask,
+  fetchTasks,
+  updateTask,
+  createTask,
+} from "../../../services/taskService";
 import TaskForm from "../../TaskForm/TaskForm";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTask } from "../../../services/taskService";
+import Header from "../../Header/Header";
 
 export default function TasksPage() {
   const queryClient = useQueryClient();
@@ -34,16 +39,44 @@ export default function TasksPage() {
     deleteMutation.mutate(id);
   };
 
+  const updateMutation = useMutation({
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
+      updateTask(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+
+  const handleUpdateTask = (id: string, status: string) => {
+    updateMutation.mutate({ id, status });
+  };
+
+  const getNextStatus = (current: string) => {
+    if (current === "pending") return "inProgress";
+    if (current === "inProgress") return "completed";
+    return "completed";
+  };
+
   if (isLoading) return <p>Loading tasks...</p>;
   if (isError) return <p>Something went wrong</p>;
 
   return (
     <>
+      <Header />
       <TaskForm onSubmit={handleCreateTask} />
       <ul>
         {tasks?.map((task) => (
           <li key={task._id}>
-            {task.title}
+            {task.title} - {task.status}
+            {task.status !== "completed" && (
+              <button
+                onClick={() =>
+                  handleUpdateTask(task._id, getNextStatus(task.status))
+                }
+              >
+                Next status
+              </button>
+            )}
             <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
           </li>
         ))}

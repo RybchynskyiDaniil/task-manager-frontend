@@ -23,3 +23,8 @@ export const deleteTask = async (id: string) => {
     const response = await axiosInstance.delete(`/api/tasks/${id}`)
     return response
 }
+
+export const updateTask = async (id: string, status: string) => {
+    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
+    return response.data
+}

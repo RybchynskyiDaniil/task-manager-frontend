@@ -49,6 +49,7 @@ public/icons.svg
 README.md
 src/api/axiosInstance.ts
 src/components/app/App.tsx
+src/components/Header/Header.tsx
 src/components/LoginForm/LoginForm.tsx
 src/components/pages/LoginPage/LoginPage.tsx
 src/components/pages/RegisterPage/RegisterPage.tsx
@@ -68,6 +69,36 @@ vite.config.ts
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="src/components/Header/Header.tsx">
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../services/authService";
+
+export default function Header() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      await logout();
+      navigate("/login");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <>
+      <button onClick={handleLogout}>Logout</button>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>something went wrong</p>}
+    </>
+  );
+}
+</file>
 
 <file path=".gitignore">
 # Logs
@@ -490,33 +521,10 @@ export const refresh = async () => {
     const response = await axiosInstance.post('/api/auth/refresh');
     return response.data;
 }
-</file>
 
-<file path="src/services/taskService.ts">
-import axiosInstance from '../api/axiosInstance';
-
-export interface Task {
-  _id: string;
-  title: string;
-  description?: string;
-  status: 'pending' | 'inProgress' | 'completed';
-  priority: 'low' | 'medium' | 'high';
-  dueDate?: string;
-};
-
-export const fetchTasks = async ():Promise<Task[]> => {
-    const response = await axiosInstance.get('/api/tasks');
-    return response.data.tasks;
-};
-
-export const createTask = async (task: { title: string; priority?: string }) => {
-    const response = await axiosInstance.post('/api/tasks', task);
-    return response.data;
-}
-
-export const deleteTask = async (id: string) => {
-    const response = await axiosInstance.delete(`/api/tasks/${id}`)
-    return response
+export const logout = async () => {
+    const response = await axiosInstance.post('/api/auth/logout');
+    return response.data
 }
 </file>
 
@@ -728,12 +736,72 @@ export default function RegisterPage() {
 }
 </file>
 
+<file path="src/main.tsx">
+import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import App from "./components/app/App";
+import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root") as HTMLElement).render(
+  <StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </StrictMode>,
+);
+</file>
+
+<file path="src/services/taskService.ts">
+import axiosInstance from '../api/axiosInstance';
+
+export interface Task {
+  _id: string;
+  title: string;
+  description?: string;
+  status: 'pending' | 'inProgress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
+};
+
+export const fetchTasks = async ():Promise<Task[]> => {
+    const response = await axiosInstance.get('/api/tasks');
+    return response.data.tasks;
+};
+
+export const createTask = async (task: { title: string; priority?: string }) => {
+    const response = await axiosInstance.post('/api/tasks', task);
+    return response.data;
+}
+
+export const deleteTask = async (id: string) => {
+    const response = await axiosInstance.delete(`/api/tasks/${id}`)
+    return response
+}
+
+export const updateTask = async (id: string, status: string) => {
+    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
+    return response.data
+}
+</file>
+
 <file path="src/components/pages/TasksPage/TasksPage.tsx">
-import { useQuery } from "@tanstack/react-query";
-import { deleteTask, fetchTasks } from "../../../services/taskService";
+import {
+  deleteTask,
+  fetchTasks,
+  updateTask,
+} from "../../../services/taskService";
 import TaskForm from "../../TaskForm/TaskForm";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTask } from "../../../services/taskService";
+import Header from "../../Header/Header";
 
 export default function TasksPage() {
   const queryClient = useQueryClient();
@@ -766,46 +834,51 @@ export default function TasksPage() {
     deleteMutation.mutate(id);
   };
 
+  const updateMutation = useMutation({
+    mutationFn: ({ id, status }: { id: string; status: string }) =>
+      updateTask(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+
+  const handleUpdateTask = (id: string, status: string) => {
+    updateMutation.mutate({ id, status });
+  };
+
+  const getNextStatus = (current: string) => {
+    if (current === "pending") return "inProgress";
+    if (current === "inProgress") return "completed";
+    return "completed";
+  };
+
   if (isLoading) return <p>Loading tasks...</p>;
   if (isError) return <p>Something went wrong</p>;
 
   return (
     <>
+      <Header />
       <TaskForm onSubmit={handleCreateTask} />
       <ul>
         {tasks?.map((task) => (
           <li key={task._id}>
-            {task.title}
-            <button onClick={() => handleDeleteTask}>Delete</button>
+            {task.title} - {task.status}
+            {task.status !== "completed" && (
+              <button
+                onClick={() =>
+                  handleUpdateTask(task._id, getNextStatus(task.status))
+                }
+              >
+                Next status
+              </button>
+            )}
+            <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
           </li>
         ))}
       </ul>
     </>
   );
 }
-</file>
-
-<file path="src/main.tsx">
-import { StrictMode } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { createRoot } from "react-dom/client";
-import App from "./components/app/App";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-const queryClient = new QueryClient();
-
-createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </BrowserRouter>
-  </StrictMode>,
-);
 </file>
 
 </files>

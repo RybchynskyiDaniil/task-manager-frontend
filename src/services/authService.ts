@@ -21,3 +21,8 @@ export const refresh = async () => {
     const response = await axiosInstance.post('/api/auth/refresh');
     return response.data;
 }
+
+export const logout = async () => {
+    const response = await axiosInstance.post('/api/auth/logout');
+    return response.data
+}
