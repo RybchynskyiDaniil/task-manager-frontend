@@ -14,7 +14,7 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
   return (
     <form action={handleSubmit} className={css.form}>
       <h2 className={css.title}>Welcome Back.</h2>
-      <div>
+      <div className={css.container}>
         <label className={css.label}>Email Address</label>
         <input
           className={css.input}
@@ -23,7 +23,7 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
           placeholder="example@gmail.com"
         />
       </div>
-      <div>
+      <div className={css.container}>
         <label className={css.label}>Enter Your Password</label>
         <input className={css.input} type="password" name="password" />
       </div>

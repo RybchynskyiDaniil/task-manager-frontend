@@ -23,13 +23,27 @@ export default function LoginPage() {
   };
   return (
     <>
-      <LoginForm onSubmit={handleLogin} />
-      <button
-        className={css.secondaryButton}
-        onClick={() => navigate("/register")}
-      >
-        Create Account
-      </button>
+      <div className={css.container}>
+        <div className={css.leftPanel}>
+          <LoginForm onSubmit={handleLogin} />
+        </div>
+
+        <div className={css.rightWrapper}>
+          <div className={css.rightPanel}>
+            <button
+              className={css.secondaryButton}
+              onClick={() => navigate("/register")}
+            >
+              Create Account
+            </button>
+            <div className={css.rightCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Invalid email or password</p>}
     </>

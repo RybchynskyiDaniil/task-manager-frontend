@@ -50,7 +50,9 @@ README.md
 src/api/axiosInstance.ts
 src/components/app/App.tsx
 src/components/Header/Header.tsx
+src/components/LoginForm/LoginForm.module.css
 src/components/LoginForm/LoginForm.tsx
+src/components/pages/LoginPage/LoginPage.module.css
 src/components/pages/LoginPage/LoginPage.tsx
 src/components/pages/RegisterPage/RegisterPage.tsx
 src/components/pages/TasksPage/TasksPage.tsx
@@ -69,36 +71,6 @@ vite.config.ts
 
 <files>
 This section contains the contents of the repository's files.
-
-<file path="src/components/Header/Header.tsx">
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../services/authService";
-
-export default function Header() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      setIsLoading(true);
-      await logout();
-      navigate("/login");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  return (
-    <>
-      <button onClick={handleLogout}>Logout</button>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>something went wrong</p>}
-    </>
-  );
-}
-</file>
 
 <file path=".gitignore">
 # Logs
@@ -159,6 +131,7 @@ export default defineConfig([
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>task-manager-frontend</title>
   </head>
@@ -287,25 +260,218 @@ import axios from "axios";
 export default axiosInstand
 </file>
 
-<file path="src/components/LoginForm/LoginForm.tsx">
-interface LoginFormProp {
-  onSubmit: (email: string, password: string) => void;
+<file path="src/components/Header/Header.tsx">
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../services/authService";
+
+export default function Header() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      await logout();
+      navigate("/login");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <>
+      <button onClick={handleLogout}>Logout</button>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>something went wrong</p>}
+    </>
+  );
+}
+</file>
+
+<file path="src/components/LoginForm/LoginForm.module.css">
+.form{
+font-family: 'DM Sans', sans-serif;
+display: flex;
+flex-direction: column;
+width: 384px;
+align-items: flex-start;
 }
 
-export default function LoginForm({ onSubmit }: LoginFormProp) {
-  const handleSubmit = (formData: FormData) => {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    onSubmit(email, password);
-  };
+.container {
+display: flex;
+flex-direction: column;
+gap: 6px;
+margin-bottom: 24px;
+}
 
-  return (
-    <form action={handleSubmit}>
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-      <button type="submit">Login</button>
-    </form>
-  );
+.title {
+font-weight: 600;
+font-size: 24px;
+line-height: 1.16667;
+letter-spacing: -0.02em;
+color: #000;
+margin-bottom: 32px;
+}
+
+.label {
+font-weight: 450;
+font-size: 16px;
+color: #2c2e3a;
+align-self: flex-start;
+}
+
+.input {
+border: 0.70px solid #a8abbd;
+border-radius: 12px;
+padding-left: 16px;
+width: 350px;
+height: 50px;
+background: #fff;
+font-weight: 400;
+font-size: 16px;
+color: #16171d;
+transition: border-color 0.6s ease, box-shadow 0.2s ease;
+}
+
+.input:focus{
+outline: none;
+border: 2px solid #2746d8;
+border-radius: 12px;
+}
+
+
+.button {
+border-radius: 12px;
+padding: 19px 74px;
+width: 204px;
+height: 56px;
+font-weight: 500;
+font-size: 16px;
+text-align: center;
+color: #fff;
+background: #3754db;
+border: none;
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.module.css">
+.container {
+display: flex;
+min-height: 100vh;
+width: 100%;
+
+}
+.leftPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+.rightWrapper{
+flex: 1;
+padding: 10px 10px 10px 0px;
+}
+
+.rightPanel {
+    padding-top: 24px;
+    padding-right: 100px;
+    height: 100%;
+    border-radius: 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3f51e8;
+    color: white;
+}
+
+.secondaryButton {
+border: 1.70px solid #3754db;
+border-radius: 12px;
+width: 180px;
+height: 48px;
+background: #fff;
+font-weight: 600;
+font-size: 16px;
+text-align: center;
+color: #3754db;
+}
+
+.leftPanelTitle {
+font-weight: 600;
+font-size: 56px;
+line-height: 1.17857;
+letter-spacing: -0.02em;
+text-align: right;
+color: #fff;
+margin-bottom: 80px;
+.container {
+display: flex;
+min-height: 100vh;
+width: 100%;
+
+}
+.leftPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+.rightWrapper{
+flex: 1;
+padding: 10px 10px 10px 0px;
+}
+
+.rightPanel {
+    padding-top: 24px;
+    padding-right: 100px;
+    height: 100%;
+    border-radius: 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3f51e8;
+    color: white;
+}
+
+.secondaryButton {
+border: 1.70px solid #3754db;
+border-radius: 12px;
+width: 180px;
+height: 48px;
+background: #fff;
+font-weight: 600;
+font-size: 16px;
+text-align: center;
+color: #3754db;
+}
+
+.rightCenter{
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.leftPanelTitle {
+font-weight: 600;
+font-size: 56px;
+line-height: 1.17857;
+letter-spacing: -0.02em;
+text-align: right;
+color: #fff;
+}
 }
 </file>
 
@@ -380,151 +546,6 @@ export default function TaskForm({ onSubmit }: TaskFormProp) {
       <button type="submit">create task</button>
     </form>
   );
-}
-</file>
-
-<file path="src/index.css">
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
-</file>
-
-<file path="src/services/authService.ts">
-import axiosInstance from "../api/axiosInstance";
-
-export const login = async (email: string, password: string) => {
-const response = await axiosInstance.post('/api/auth/login', {
-email,
-password,        
-})
-return response.data;
-};
-
-export const register = async (name: string, email: string, password: string) => {
-    const response = await axiosInstance.post('/api/auth/register', {
-        name,
-        email,
-        password,
-    })
-    return response.data;
-}
-
-export const refresh = async () => {
-    const response = await axiosInstance.post('/api/auth/refresh');
-    return response.data;
-}
-
-export const logout = async () => {
-    const response = await axiosInstance.post('/api/auth/logout');
-    return response.data
 }
 </file>
 
@@ -666,35 +687,40 @@ export default function App() {
 }
 </file>
 
-<file path="src/components/pages/LoginPage/LoginPage.tsx">
-import LoginForm from "../../LoginForm/LoginForm";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../../services/authService";
+<file path="src/components/LoginForm/LoginForm.tsx">
+import css from "./LoginForm.module.css";
 
-export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
+interface LoginFormProp {
+  onSubmit: (email: string, password: string) => void;
+}
 
-  const handleLogin = async (email: string, password: string) => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      await login(email, password);
-      navigate("/tasks");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
+export default function LoginForm({ onSubmit }: LoginFormProp) {
+  const handleSubmit = (formData: FormData) => {
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    onSubmit(email, password);
   };
+
   return (
-    <>
-      <LoginForm onSubmit={handleLogin} />
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Invalid email or password</p>}
-    </>
+    <form action={handleSubmit} className={css.form}>
+      <h2 className={css.title}>Welcome Back.</h2>
+      <div className={css.container}>
+        <label className={css.label}>Email Address</label>
+        <input
+          className={css.input}
+          type="email"
+          name="email"
+          placeholder="example@gmail.com"
+        />
+      </div>
+      <div className={css.container}>
+        <label className={css.label}>Enter Your Password</label>
+        <input className={css.input} type="password" name="password" />
+      </div>
+      <button className={css.button} type="submit">
+        Log in
+      </button>
+    </form>
   );
 }
 </file>
@@ -736,6 +762,122 @@ export default function RegisterPage() {
 }
 </file>
 
+<file path="src/index.css">
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: 'DM Sans', system-ui, Roboto, sans-serif;
+  --heading: 'DM Sans', system-ui, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  /* border-inline: 1px solid var(--border); */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  /* margin: 0 0 8px; */
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}
+
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
+}
+
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
+}
+</file>
+
 <file path="src/main.tsx">
 import { StrictMode } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -757,6 +899,91 @@ createRoot(document.getElementById("root") as HTMLElement).render(
     </BrowserRouter>
   </StrictMode>,
 );
+</file>
+
+<file path="src/services/authService.ts">
+import axiosInstance from "../api/axiosInstance";
+
+export const login = async (email: string, password: string) => {
+const response = await axiosInstance.post('/api/auth/login', {
+email,
+password,        
+})
+return response.data;
+};
+
+export const register = async (name: string, email: string, password: string) => {
+    const response = await axiosInstance.post('/api/auth/register', {
+        name,
+        email,
+        password,
+    })
+    return response.data;
+}
+
+export const refresh = async () => {
+    const response = await axiosInstance.post('/api/auth/refresh');
+    return response.data;
+}
+
+export const logout = async () => {
+    const response = await axiosInstance.post('/api/auth/logout');
+    return response.data
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.tsx">
+import LoginForm from "../../LoginForm/LoginForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../services/authService";
+import css from "./LoginPage.module.css";
+
+export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await login(email, password);
+      navigate("/tasks");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <>
+      <div className={css.container}>
+        <div className={css.leftPanel}>
+          <LoginForm onSubmit={handleLogin} />
+        </div>
+
+        <div className={css.rightWrapper}>
+          <div className={css.rightPanel}>
+            <button
+              className={css.secondaryButton}
+              onClick={() => navigate("/register")}
+            >
+              Create Account
+            </button>
+            <div className={css.rightCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Invalid email or password</p>}
+    </>
+  );
+}
 </file>
 
 <file path="src/services/taskService.ts">
@@ -797,10 +1024,10 @@ import {
   deleteTask,
   fetchTasks,
   updateTask,
+  createTask,
 } from "../../../services/taskService";
 import TaskForm from "../../TaskForm/TaskForm";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTask } from "../../../services/taskService";
 import Header from "../../Header/Header";
 
 export default function TasksPage() {
