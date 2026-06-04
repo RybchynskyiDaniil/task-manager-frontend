@@ -54,9 +54,11 @@ src/components/LoginForm/LoginForm.module.css
 src/components/LoginForm/LoginForm.tsx
 src/components/pages/LoginPage/LoginPage.module.css
 src/components/pages/LoginPage/LoginPage.tsx
+src/components/pages/RegisterPage/RegisterPage.module.css
 src/components/pages/RegisterPage/RegisterPage.tsx
 src/components/pages/TasksPage/TasksPage.tsx
 src/components/PrivateRoute/PrivateRoute.tsx
+src/components/RegisterForm/RegisterForm.module.css
 src/components/RegisterForm/RegisterForm.tsx
 src/components/TaskForm/TaskForm.tsx
 src/index.css
@@ -71,6 +73,169 @@ vite.config.ts
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="src/components/pages/RegisterPage/RegisterPage.module.css">
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.rightPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+
+.leftPanelWrapper {
+    flex: 1;
+    padding: 10px 0 10px 10px;
+}
+
+
+.leftPanel {
+    height: 100%;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3754db;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.leftPanel::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 80px solid #fbbe37;
+}
+
+
+.leftPanel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 50px;
+    transform: rotate(45deg) scale(2);
+    z-index: 0;
+}
+
+.leftCenter {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 100px;
+}
+
+.leftPanelTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: #fff;
+    max-width: 400px;
+    margin: 0;
+}
+</file>
+
+<file path="src/components/RegisterForm/RegisterForm.module.css">
+.form {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 384px;
+    align-items: flex-start;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.16667;
+    letter-spacing: -0.02em;
+    color: #000;
+}
+.underTitle{
+font-weight: 400;
+font-size: 16px;
+letter-spacing: -0.02em;
+color: #62667e;
+}
+
+.label {
+    font-weight: 450;
+    font-size: 16px;
+    color: #2c2e3a;
+    align-self: flex-start;
+}
+
+.input {
+    border: 0.60px solid #2746d8;
+    border-radius: 12px;
+    padding-left: 16px;
+    width: 350px;
+    height: 50px;
+    background: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    color: #16171d;
+    transition: border-color 0.6s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid #2746d8;
+    border-radius: 12px;
+}
+
+.LoginButton{
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
+    
+}
+
+.button {
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
+}
+</file>
 
 <file path=".gitignore">
 # Logs
@@ -123,23 +288,6 @@ export default defineConfig([
     },
   },
 ])
-</file>
-
-<file path="index.html">
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>task-manager-frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 </file>
 
 <file path="public/favicon.svg">
@@ -290,191 +438,6 @@ export default function Header() {
 }
 </file>
 
-<file path="src/components/LoginForm/LoginForm.module.css">
-.form{
-font-family: 'DM Sans', sans-serif;
-display: flex;
-flex-direction: column;
-width: 384px;
-align-items: flex-start;
-}
-
-.container {
-display: flex;
-flex-direction: column;
-gap: 6px;
-margin-bottom: 24px;
-}
-
-.title {
-font-weight: 600;
-font-size: 24px;
-line-height: 1.16667;
-letter-spacing: -0.02em;
-color: #000;
-margin-bottom: 32px;
-}
-
-.label {
-font-weight: 450;
-font-size: 16px;
-color: #2c2e3a;
-align-self: flex-start;
-}
-
-.input {
-border: 0.70px solid #a8abbd;
-border-radius: 12px;
-padding-left: 16px;
-width: 350px;
-height: 50px;
-background: #fff;
-font-weight: 400;
-font-size: 16px;
-color: #16171d;
-transition: border-color 0.6s ease, box-shadow 0.2s ease;
-}
-
-.input:focus{
-outline: none;
-border: 2px solid #2746d8;
-border-radius: 12px;
-}
-
-
-.button {
-border-radius: 12px;
-padding: 19px 74px;
-width: 204px;
-height: 56px;
-font-weight: 500;
-font-size: 16px;
-text-align: center;
-color: #fff;
-background: #3754db;
-border: none;
-}
-</file>
-
-<file path="src/components/pages/LoginPage/LoginPage.module.css">
-.container {
-display: flex;
-min-height: 100vh;
-width: 100%;
-
-}
-.leftPanel {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #ffffff;
-    padding-left: 120px;
-}
-.rightWrapper{
-flex: 1;
-padding: 10px 10px 10px 0px;
-}
-
-.rightPanel {
-    padding-top: 24px;
-    padding-right: 100px;
-    height: 100%;
-    border-radius: 32px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    background: #3f51e8;
-    color: white;
-}
-
-.secondaryButton {
-border: 1.70px solid #3754db;
-border-radius: 12px;
-width: 180px;
-height: 48px;
-background: #fff;
-font-weight: 600;
-font-size: 16px;
-text-align: center;
-color: #3754db;
-}
-
-.leftPanelTitle {
-font-weight: 600;
-font-size: 56px;
-line-height: 1.17857;
-letter-spacing: -0.02em;
-text-align: right;
-color: #fff;
-margin-bottom: 80px;
-.container {
-display: flex;
-min-height: 100vh;
-width: 100%;
-
-}
-.leftPanel {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #ffffff;
-    padding-left: 120px;
-}
-.rightWrapper{
-flex: 1;
-padding: 10px 10px 10px 0px;
-}
-
-.rightPanel {
-    padding-top: 24px;
-    padding-right: 100px;
-    height: 100%;
-    border-radius: 32px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    background: #3f51e8;
-    color: white;
-}
-
-.secondaryButton {
-border: 1.70px solid #3754db;
-border-radius: 12px;
-width: 180px;
-height: 48px;
-background: #fff;
-font-weight: 600;
-font-size: 16px;
-text-align: center;
-color: #3754db;
-}
-
-.rightCenter{
-flex: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.leftPanelTitle {
-font-weight: 600;
-font-size: 56px;
-line-height: 1.17857;
-letter-spacing: -0.02em;
-text-align: right;
-color: #fff;
-}
-}
-</file>
-
 <file path="src/components/PrivateRoute/PrivateRoute.tsx">
 import { refresh } from "../../services/authService";
 import { useState, useEffect } from "react";
@@ -507,6 +470,8 @@ export const PrivateRoute = ({ children }: PrivateRouteProp) => {
 </file>
 
 <file path="src/components/RegisterForm/RegisterForm.tsx">
+import css from "./RegisterForm.module.css";
+
 interface RegisterFormProp {
   onSubmit: (name: string, email: string, password: string) => void;
 }
@@ -519,11 +484,28 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
     onSubmit(name, email, password);
   };
   return (
-    <form action={handleSubmit}>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-      <button type="submit">Create Account</button>
+    <form className={css.form} action={handleSubmit}>
+      <button className={css.LoginButton} type="submit">
+        Log in
+      </button>
+      <h2 className={css.title}>Create an Account</h2>
+      <p className={css.underTitle}>It’s Simpe and Easy!!</p>
+      <div className={css.container}>
+        <label className={css.label}>Fullname</label>
+        <input className={css.input} type="text" name="name" />
+      </div>
+      <div className={css.container}>
+        <label className={css.label}>Email Address</label>
+        <input className={css.input} type="email" name="email" />
+      </div>
+      <div className={css.container}>
+        <label className={css.label}>Enter A Password</label>
+        <input className={css.input} type="password" name="password" />
+      </div>
+
+      <button className={css.button} type="submit">
+        Create Account
+      </button>
     </form>
   );
 }
@@ -624,6 +606,23 @@ export default defineConfig({
 })
 </file>
 
+<file path="index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>task-manager-frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+</file>
+
 <file path="package.json">
 {
   "name": "task-manager-frontend",
@@ -687,6 +686,270 @@ export default function App() {
 }
 </file>
 
+<file path="src/components/LoginForm/LoginForm.module.css">
+.form{
+font-family: 'DM Sans', sans-serif;
+display: flex;
+flex-direction: column;
+width: 384px;
+align-items: flex-start;
+}
+
+.container {
+display: flex;
+flex-direction: column;
+gap: 6px;
+margin-bottom: 24px;
+}
+
+.title {
+font-weight: 600;
+font-size: 24px;
+line-height: 1.16667;
+letter-spacing: -0.02em;
+color: #000;
+margin-bottom: 32px;
+}
+
+.label {
+font-weight: 450;
+font-size: 16px;
+color: #2c2e3a;
+align-self: flex-start;
+}
+
+.input {
+border: 0.70px solid #a8abbd;
+border-radius: 12px;
+padding-left: 16px;
+width: 350px;
+height: 50px;
+background: #fff;
+font-weight: 400;
+font-size: 16px;
+color: #16171d;
+transition: border-color 0.6s ease, box-shadow 0.2s ease;
+}
+
+.input:focus{
+outline: none;
+border: 2px solid #2746d8;
+border-radius: 12px;
+}
+
+
+.button {
+border-radius: 12px;
+padding: 19px 74px;
+width: 204px;
+height: 56px;
+font-weight: 500;
+font-size: 16px;
+text-align: center;
+color: #fff;
+background: #3754db;
+border: none;
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.module.css">
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.leftPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+
+.rightWrapper {
+    flex: 1;
+    padding: 10px 10px 10px 0;
+}
+
+.rightPanel {
+    height: 100%;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3754db;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.rightPanel::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 80px solid #fbbe37;
+}
+
+.rightPanel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 50px;
+    transform: rotate(45deg) scale(2);
+    z-index: 0;
+}
+
+.secondaryButton {
+    border: 1.70px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    width: 180px;
+    height: 48px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    cursor: pointer;
+}
+
+.rightCenter {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 100px;
+}
+
+.leftPanelTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: #fff;
+    max-width: 400px;
+    margin: 0;
+}
+</file>
+
+<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
+import RegisterForm from "../../RegisterForm/RegisterForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../../services/authService";
+import css from "./RegisterPage.module.css";
+
+export default function RegisterPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+  const handleRegister = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await register(username, email, password);
+      navigate("/login");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <div className={css.container}>
+        <div className={css.leftPanelWrapper}>
+          <div className={css.leftPanel}>
+            <div className={css.leftCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div className={css.rightPanel}>
+          <RegisterForm onSubmit={handleRegister} />
+        </div>
+      </div>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>fails to meet the requirements</p>}
+    </>
+  );
+}
+</file>
+
+<file path="src/main.tsx">
+import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import App from "./components/app/App";
+import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById("root") as HTMLElement).render(
+  <StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </StrictMode>,
+);
+</file>
+
+<file path="src/services/authService.ts">
+import axiosInstance from "../api/axiosInstance";
+
+export const login = async (email: string, password: string) => {
+const response = await axiosInstance.post('/api/auth/login', {
+email,
+password,        
+})
+return response.data;
+};
+
+export const register = async (name: string, email: string, password: string) => {
+    const response = await axiosInstance.post('/api/auth/register', {
+        name,
+        email,
+        password,
+    })
+    return response.data;
+}
+
+export const refresh = async () => {
+    const response = await axiosInstance.post('/api/auth/refresh');
+    return response.data;
+}
+
+export const logout = async () => {
+    const response = await axiosInstance.post('/api/auth/logout');
+    return response.data
+}
+</file>
+
 <file path="src/components/LoginForm/LoginForm.tsx">
 import css from "./LoginForm.module.css";
 
@@ -721,43 +984,6 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
         Log in
       </button>
     </form>
-  );
-}
-</file>
-
-<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
-import RegisterForm from "../../RegisterForm/RegisterForm";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { register } from "../../../services/authService";
-
-export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-  const handleRegister = async (
-    username: string,
-    email: string,
-    password: string,
-  ) => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      await register(username, email, password);
-      navigate("/login");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <>
-      <RegisterForm onSubmit={handleRegister} />
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>fails to meet the requirements</p>}
-    </>
   );
 }
 </file>
@@ -878,56 +1104,35 @@ code {
 }
 </file>
 
-<file path="src/main.tsx">
-import { StrictMode } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { createRoot } from "react-dom/client";
-import App from "./components/app/App";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+<file path="src/services/taskService.ts">
+import axiosInstance from '../api/axiosInstance';
 
-const queryClient = new QueryClient();
-
-createRoot(document.getElementById("root") as HTMLElement).render(
-  <StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </BrowserRouter>
-  </StrictMode>,
-);
-</file>
-
-<file path="src/services/authService.ts">
-import axiosInstance from "../api/axiosInstance";
-
-export const login = async (email: string, password: string) => {
-const response = await axiosInstance.post('/api/auth/login', {
-email,
-password,        
-})
-return response.data;
+export interface Task {
+  _id: string;
+  title: string;
+  description?: string;
+  status: 'pending' | 'inProgress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
 };
 
-export const register = async (name: string, email: string, password: string) => {
-    const response = await axiosInstance.post('/api/auth/register', {
-        name,
-        email,
-        password,
-    })
+export const fetchTasks = async ():Promise<Task[]> => {
+    const response = await axiosInstance.get('/api/tasks');
+    return response.data.tasks;
+};
+
+export const createTask = async (task: { title: string; priority?: string }) => {
+    const response = await axiosInstance.post('/api/tasks', task);
     return response.data;
 }
 
-export const refresh = async () => {
-    const response = await axiosInstance.post('/api/auth/refresh');
-    return response.data;
+export const deleteTask = async (id: string) => {
+    const response = await axiosInstance.delete(`/api/tasks/${id}`)
+    return response
 }
 
-export const logout = async () => {
-    const response = await axiosInstance.post('/api/auth/logout');
+export const updateTask = async (id: string, status: string) => {
+    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
     return response.data
 }
 </file>
@@ -983,39 +1188,6 @@ export default function LoginPage() {
       {isError && <p>Invalid email or password</p>}
     </>
   );
-}
-</file>
-
-<file path="src/services/taskService.ts">
-import axiosInstance from '../api/axiosInstance';
-
-export interface Task {
-  _id: string;
-  title: string;
-  description?: string;
-  status: 'pending' | 'inProgress' | 'completed';
-  priority: 'low' | 'medium' | 'high';
-  dueDate?: string;
-};
-
-export const fetchTasks = async ():Promise<Task[]> => {
-    const response = await axiosInstance.get('/api/tasks');
-    return response.data.tasks;
-};
-
-export const createTask = async (task: { title: string; priority?: string }) => {
-    const response = await axiosInstance.post('/api/tasks', task);
-    return response.data;
-}
-
-export const deleteTask = async (id: string) => {
-    const response = await axiosInstance.delete(`/api/tasks/${id}`)
-    return response
-}
-
-export const updateTask = async (id: string, status: string) => {
-    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
-    return response.data
 }
 </file>
 

@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.leftPanel {
+.rightPanel {
     flex: 1;
     display: flex;
     justify-content: flex-start;
@@ -13,12 +13,13 @@
     padding-left: 120px;
 }
 
-.rightWrapper {
+.leftPanelWrapper {
     flex: 1;
-    padding: 10px 10px 10px 0;
+    padding: 10px 0 10px 10px;
 }
 
-.rightPanel {
+
+.leftPanel {
     height: 100%;
     border-radius: 32px;
     display: flex;
@@ -32,7 +33,7 @@
     position: relative;
 }
 
-.rightPanel::before {
+.leftPanel::before {
     content: '';
     position: absolute;
     left: -200px;
@@ -44,7 +45,8 @@
     border: 80px solid #fbbe37;
 }
 
-.rightPanel::after {
+
+.leftPanel::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -56,20 +58,7 @@
     z-index: 0;
 }
 
-.secondaryButton {
-    border: 1.70px solid rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    width: 180px;
-    height: 48px;
-    background: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    color: #3754db;
-    cursor: pointer;
-}
-
-.rightCenter {
+.leftCenter {
     flex: 1;
     display: flex;
     align-items: center;

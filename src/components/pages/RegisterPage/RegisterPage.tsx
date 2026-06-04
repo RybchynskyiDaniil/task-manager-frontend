@@ -2,6 +2,7 @@ import RegisterForm from "../../RegisterForm/RegisterForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../../services/authService";
+import css from "./RegisterPage.module.css";
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,21 @@ export default function RegisterPage() {
 
   return (
     <>
-      <RegisterForm onSubmit={handleRegister} />
+      <div className={css.container}>
+        <div className={css.leftPanelWrapper}>
+          <div className={css.leftPanel}>
+            <div className={css.leftCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div className={css.rightPanel}>
+          <RegisterForm onSubmit={handleRegister} />
+        </div>
+      </div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>fails to meet the requirements</p>}
     </>
