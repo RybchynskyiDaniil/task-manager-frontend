@@ -13,9 +13,6 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
   };
   return (
     <form className={css.form} action={handleSubmit}>
-      <button className={css.LoginButton} type="submit">
-        Log in
-      </button>
       <h2 className={css.title}>Create an Account</h2>
       <p className={css.underTitle}>It’s Simpe and Easy!!</p>
       <div className={css.container}>

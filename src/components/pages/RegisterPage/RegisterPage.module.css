@@ -76,3 +76,18 @@
     max-width: 400px;
     margin: 0;
 }
+
+.loginButton {
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}

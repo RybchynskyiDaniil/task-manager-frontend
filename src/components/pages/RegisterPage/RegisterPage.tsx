@@ -30,6 +30,12 @@ export default function RegisterPage() {
       <div className={css.container}>
         <div className={css.leftPanelWrapper}>
           <div className={css.leftPanel}>
+            <button
+              className={css.loginButton}
+              onClick={() => navigate("/login")}
+            >
+              Log in
+            </button>
             <div className={css.leftCenter}>
               <h2 className={css.leftPanelTitle}>
                 Take your productivity to the next level.

@@ -60,6 +60,8 @@ src/components/pages/TasksPage/TasksPage.tsx
 src/components/PrivateRoute/PrivateRoute.tsx
 src/components/RegisterForm/RegisterForm.module.css
 src/components/RegisterForm/RegisterForm.tsx
+src/components/TaskCard/TaskCard.module.css
+src/components/TaskCard/TaskCard.tsx
 src/components/TaskForm/TaskForm.tsx
 src/index.css
 src/main.tsx
@@ -74,166 +76,39 @@ vite.config.ts
 <files>
 This section contains the contents of the repository's files.
 
-<file path="src/components/pages/RegisterPage/RegisterPage.module.css">
-.container {
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
-}
+<file path="src/components/TaskCard/TaskCard.module.css">
 
-.rightPanel {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #ffffff;
-    padding-left: 120px;
-}
-
-.leftPanelWrapper {
-    flex: 1;
-    padding: 10px 0 10px 10px;
-}
-
-
-.leftPanel {
-    height: 100%;
-    border-radius: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    background: #3754db;
-    padding: 24px;
-    overflow: hidden;
-    position: relative;
-}
-
-.leftPanel::before {
-    content: '';
-    position: absolute;
-    left: -200px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 80px solid #fbbe37;
-}
-
-
-.leftPanel::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 60px 50px;
-    transform: rotate(45deg) scale(2);
-    z-index: 0;
-}
-
-.leftCenter {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 100px;
-}
-
-.leftPanelTitle {
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    text-align: right;
-    color: #fff;
-    max-width: 400px;
-    margin: 0;
-}
 </file>
 
-<file path="src/components/RegisterForm/RegisterForm.module.css">
-.form {
-    font-family: 'DM Sans', sans-serif;
-    display: flex;
-    flex-direction: column;
-    width: 384px;
-    align-items: flex-start;
+<file path="src/components/TaskCard/TaskCard.tsx">
+interface TaskCardProp {
+  _id: string;
+  title: string;
+  status: "pending" | "inProgress" | "completed";
+  onDelete: (id: string) => void;
+  onUpdate: (id: string, status: string) => void;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 24px;
-}
-
-.title {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 1.16667;
-    letter-spacing: -0.02em;
-    color: #000;
-}
-.underTitle{
-font-weight: 400;
-font-size: 16px;
-letter-spacing: -0.02em;
-color: #62667e;
-}
-
-.label {
-    font-weight: 450;
-    font-size: 16px;
-    color: #2c2e3a;
-    align-self: flex-start;
-}
-
-.input {
-    border: 0.60px solid #2746d8;
-    border-radius: 12px;
-    padding-left: 16px;
-    width: 350px;
-    height: 50px;
-    background: #fff;
-    font-weight: 400;
-    font-size: 16px;
-    color: #16171d;
-    transition: border-color 0.6s ease, box-shadow 0.2s ease;
-}
-
-.input:focus {
-    outline: none;
-    border: 2px solid #2746d8;
-    border-radius: 12px;
-}
-
-.LoginButton{
-    border-radius: 12px;
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
-    color: #3754db;
-    background: #fff;
-    border: 1.70px solid #3754db;
-    width: 180px;
-    height: 48px;
-    
-}
-
-.button {
-    border-radius: 12px;
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
-    color: #3754db;
-    background: #fff;
-    border: 1.70px solid #3754db;
-    width: 180px;
-    height: 48px;
+export default function TaskCard({
+  _id,
+  title,
+  status,
+  onDelete,
+  onUpdate,
+}: TaskCardProp) {
+  return (
+    <div>
+      <div>
+        {_id}
+        <p>{title}</p>
+        <span>{status}</span>
+        {status !== "completed" && (
+          <button onClick={onUpdate}>Next status</button>
+        )}
+        <button onClick={onDelete}>Delete</button>
+      </div>
+    </div>
+  );
 }
 </file>
 
@@ -438,6 +313,102 @@ export default function Header() {
 }
 </file>
 
+<file path="src/components/pages/RegisterPage/RegisterPage.module.css">
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.rightPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+
+.leftPanelWrapper {
+    flex: 1;
+    padding: 10px 0 10px 10px;
+}
+
+
+.leftPanel {
+    height: 100%;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3754db;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.leftPanel::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 80px solid #fbbe37;
+}
+
+
+.leftPanel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 50px;
+    transform: rotate(45deg) scale(2);
+    z-index: 0;
+}
+
+.leftCenter {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 100px;
+}
+
+.leftPanelTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: #fff;
+    max-width: 400px;
+    margin: 0;
+}
+
+.loginButton {
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+</file>
+
 <file path="src/components/PrivateRoute/PrivateRoute.tsx">
 import { refresh } from "../../services/authService";
 import { useState, useEffect } from "react";
@@ -469,45 +440,85 @@ export const PrivateRoute = ({ children }: PrivateRouteProp) => {
 };
 </file>
 
-<file path="src/components/RegisterForm/RegisterForm.tsx">
-import css from "./RegisterForm.module.css";
-
-interface RegisterFormProp {
-  onSubmit: (name: string, email: string, password: string) => void;
+<file path="src/components/RegisterForm/RegisterForm.module.css">
+.form {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 384px;
+    align-items: flex-start;
 }
 
-export default function RegisterForm({ onSubmit }: RegisterFormProp) {
-  const handleSubmit = (formData: FormData) => {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    onSubmit(name, email, password);
-  };
-  return (
-    <form className={css.form} action={handleSubmit}>
-      <button className={css.LoginButton} type="submit">
-        Log in
-      </button>
-      <h2 className={css.title}>Create an Account</h2>
-      <p className={css.underTitle}>It’s Simpe and Easy!!</p>
-      <div className={css.container}>
-        <label className={css.label}>Fullname</label>
-        <input className={css.input} type="text" name="name" />
-      </div>
-      <div className={css.container}>
-        <label className={css.label}>Email Address</label>
-        <input className={css.input} type="email" name="email" />
-      </div>
-      <div className={css.container}>
-        <label className={css.label}>Enter A Password</label>
-        <input className={css.input} type="password" name="password" />
-      </div>
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+}
 
-      <button className={css.button} type="submit">
-        Create Account
-      </button>
-    </form>
-  );
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.16667;
+    letter-spacing: -0.02em;
+    color: #000;
+}
+.underTitle{
+font-weight: 400;
+font-size: 16px;
+letter-spacing: -0.02em;
+color: #62667e;
+}
+
+.label {
+    font-weight: 450;
+    font-size: 16px;
+    color: #2c2e3a;
+    align-self: flex-start;
+}
+
+.input {
+    border: 0.60px solid #2746d8;
+    border-radius: 12px;
+    padding-left: 16px;
+    width: 350px;
+    height: 50px;
+    background: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    color: #16171d;
+    transition: border-color 0.6s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid #2746d8;
+    border-radius: 12px;
+}
+
+.LoginButton{
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
+    
+}
+
+.button {
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    background: #fff;
+    border: 1.70px solid #3754db;
+    width: 180px;
+    height: 48px;
 }
 </file>
 
@@ -752,146 +763,41 @@ border: none;
 }
 </file>
 
-<file path="src/components/pages/LoginPage/LoginPage.module.css">
-.container {
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
+<file path="src/components/RegisterForm/RegisterForm.tsx">
+import css from "./RegisterForm.module.css";
+
+interface RegisterFormProp {
+  onSubmit: (name: string, email: string, password: string) => void;
 }
 
-.leftPanel {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #ffffff;
-    padding-left: 120px;
-}
-
-.rightWrapper {
-    flex: 1;
-    padding: 10px 10px 10px 0;
-}
-
-.rightPanel {
-    height: 100%;
-    border-radius: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    background: #3754db;
-    padding: 24px;
-    overflow: hidden;
-    position: relative;
-}
-
-.rightPanel::before {
-    content: '';
-    position: absolute;
-    left: -200px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 80px solid #fbbe37;
-}
-
-.rightPanel::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 60px 50px;
-    transform: rotate(45deg) scale(2);
-    z-index: 0;
-}
-
-.secondaryButton {
-    border: 1.70px solid rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    width: 180px;
-    height: 48px;
-    background: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    color: #3754db;
-    cursor: pointer;
-}
-
-.rightCenter {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 100px;
-}
-
-.leftPanelTitle {
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    text-align: right;
-    color: #fff;
-    max-width: 400px;
-    margin: 0;
-}
-</file>
-
-<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
-import RegisterForm from "../../RegisterForm/RegisterForm";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { register } from "../../../services/authService";
-import css from "./RegisterPage.module.css";
-
-export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-  const handleRegister = async (
-    username: string,
-    email: string,
-    password: string,
-  ) => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      await register(username, email, password);
-      navigate("/login");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
+export default function RegisterForm({ onSubmit }: RegisterFormProp) {
+  const handleSubmit = (formData: FormData) => {
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    onSubmit(name, email, password);
   };
-
   return (
-    <>
+    <form className={css.form} action={handleSubmit}>
+      <h2 className={css.title}>Create an Account</h2>
+      <p className={css.underTitle}>It’s Simpe and Easy!!</p>
       <div className={css.container}>
-        <div className={css.leftPanelWrapper}>
-          <div className={css.leftPanel}>
-            <div className={css.leftCenter}>
-              <h2 className={css.leftPanelTitle}>
-                Take your productivity to the next level.
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div className={css.rightPanel}>
-          <RegisterForm onSubmit={handleRegister} />
-        </div>
+        <label className={css.label}>Fullname</label>
+        <input className={css.input} type="text" name="name" />
       </div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>fails to meet the requirements</p>}
-    </>
+      <div className={css.container}>
+        <label className={css.label}>Email Address</label>
+        <input className={css.input} type="email" name="email" />
+      </div>
+      <div className={css.container}>
+        <label className={css.label}>Enter A Password</label>
+        <input className={css.input} type="password" name="password" />
+      </div>
+
+      <button className={css.button} type="submit">
+        Create Account
+      </button>
+    </form>
   );
 }
 </file>
@@ -984,6 +890,159 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
         Log in
       </button>
     </form>
+  );
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.module.css">
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.leftPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+
+.rightWrapper {
+    flex: 1;
+    padding: 10px 10px 10px 0;
+}
+
+.rightPanel {
+    height: 100%;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3754db;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.rightPanel::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 80px solid #fbbe37;
+}
+
+.rightPanel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 50px;
+    transform: rotate(45deg) scale(2);
+    z-index: 0;
+}
+
+.secondaryButton {
+    border: 1.70px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    width: 180px;
+    height: 48px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    cursor: pointer;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.rightCenter {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 100px;
+}
+
+.leftPanelTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: #fff;
+    max-width: 400px;
+    margin: 0;
+}
+</file>
+
+<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
+import RegisterForm from "../../RegisterForm/RegisterForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../../services/authService";
+import css from "./RegisterPage.module.css";
+
+export default function RegisterPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+  const handleRegister = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await register(username, email, password);
+      navigate("/login");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <div className={css.container}>
+        <div className={css.leftPanelWrapper}>
+          <div className={css.leftPanel}>
+            <button
+              className={css.loginButton}
+              onClick={() => navigate("/login")}
+            >
+              Log in
+            </button>
+            <div className={css.leftCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div className={css.rightPanel}>
+          <RegisterForm onSubmit={handleRegister} />
+        </div>
+      </div>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>fails to meet the requirements</p>}
+    </>
   );
 }
 </file>

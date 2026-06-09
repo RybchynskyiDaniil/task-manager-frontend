@@ -67,6 +67,9 @@
     text-align: center;
     color: #3754db;
     cursor: pointer;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
 
 .rightCenter {
