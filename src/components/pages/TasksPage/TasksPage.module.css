@@ -1,0 +1,44 @@
+.modalOverlay{
+position: fixed;
+inset:0;
+background: rgba(0, 0, 0, 0.4);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index:100;
+}
+
+.modalContent{
+
+}
+
+.modalTitle{
+
+}
+
+.modalButton{
+
+}
+
+
+
+
+
+
+.searchBar {
+    padding: 16px 40px;
+}
+
+.searchInput {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #e5e4e7;
+    border-radius: 20px;
+    padding: 0 16px;
+    font-size: 14px;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: #3754db;
+}

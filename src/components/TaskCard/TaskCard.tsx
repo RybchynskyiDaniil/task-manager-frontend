@@ -13,14 +13,20 @@ export default function TaskCard({
   onDelete,
   onUpdate,
 }: TaskCardProp) {
+  const getNextStatus = (current: string) => {
+    if (current === "pending") return "inProgress";
+    if (current === "inProgress") return "completed";
+    return "completed";
+  };
   return (
     <div>
       <div>
-        {_id}
         <p>{title}</p>
         <span>{status}</span>
         {status !== "completed" && (
-          <button onClick={() => onUpdate(_id, status)}>Next status</button>
+          <button onClick={() => onUpdate(_id, getNextStatus(status))}>
+            Next status
+          </button>
         )}
         <button onClick={() => onDelete(_id)}>Delete</button>
       </div>
