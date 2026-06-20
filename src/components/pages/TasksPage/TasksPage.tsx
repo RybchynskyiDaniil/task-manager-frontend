@@ -10,6 +10,8 @@ import TaskForm from "../../TaskForm/TaskForm";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Header from "../../Header/Header";
+import { HiMagnifyingGlass } from "react-icons/hi2";
+import EmptyTasksIcon from "../../EmptyTasksIcon/EmptyTasksIcon";
 
 export default function TasksPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,34 +77,54 @@ export default function TasksPage() {
     <>
       <Header />
       <div className={css.searchBar}>
-        <input
-          type="text"
-          placeholder="Search your Tasks here ..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className={css.searchInput}
-        />
+        <div className={css.searchWrapper}>
+          <input
+            type="text"
+            placeholder="Search your Tasks here ..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={css.searchInput}
+          />
+          <HiMagnifyingGlass className={css.searchIcon} />
+        </div>
       </div>
       {isModalOpen && (
         <div className={css.modalOverlay}>
           <div className={css.modalContent}>
-            <h2>Create Task</h2>
+            <div className={css.modalHeader}>
+              <h2 className={css.modalTitle}>Create Task</h2>
+              <button
+                className={css.modalContentButton}
+                onClick={() => setIsModalOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
             <TaskForm
               onSubmit={(title) => {
                 handleCreateTask(title);
                 setIsModalOpen(false);
               }}
             />
-            <button onClick={() => setIsModalOpen(false)}>✕ Close</button>
           </div>
         </div>
       )}
 
       {tasks?.length === 0 ? (
         <div className={css.emptyState}>
-          <h2>No Tasks Yet</h2>
-          <p>You have no tasks yet. Get productive. Create a Task Now.</p>
-          <button onClick={() => setIsModalOpen(true)}>Create a Task</button>
+          <div className={css.emptyIcon}>
+            <EmptyTasksIcon />
+          </div>
+          <h2 className={css.emptyTitle}>No Tasks Yet</h2>
+          <p className={css.emptySubTitle}>
+            You have no tasks yet. Get productive. Create a Task Now.
+          </p>
+          <button
+            className={css.emptyCreateButton}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Create a Task
+          </button>
         </div>
       ) : (
         <>

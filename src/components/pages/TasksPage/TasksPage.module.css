@@ -1,44 +1,119 @@
-.modalOverlay{
-position: fixed;
-inset:0;
-background: rgba(0, 0, 0, 0.4);
-display: flex;
-align-items: center;
-justify-content: center;
-z-index:100;
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
 }
 
-.modalContent{
-
+.modalContent {
+    width: 500px;
+    height: 600px;
+    border-radius: 20px;
+    background: #fff;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
 }
 
-.modalTitle{
-
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
-.modalButton{
+.modalTitle {
+    font-weight: 600;
+    font-size: 24px;
+}
 
+.modalContentButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #62667e;
+    cursor: pointer;
 }
 
 
 
 
+
+.emptyIcon {
+    margin-bottom: 48px;
+}
+
+.emptyTitle{
+font-weight: 600;
+font-size: 28px;
+letter-spacing: -0.02em;
+color: #000;
+}
+
+.emptySubTitle{
+font-weight: 400;
+font-size: 16px;
+letter-spacing: -0.02em;
+color: #6d6c6c;
+margin-bottom: 24px;
+}
+
+.emptyCreateButton {
+    border-radius: 12px;
+    width: 213px;
+    height: 57px;
+    background: #3754db;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
 
 
 .searchBar {
-    padding: 16px 40px;
+    padding: 25px 47px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    width: 350px;
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 0 16px;
+}
+.searchWrapper:focus-within {
+    border-color: #3754db;
 }
 
 .searchInput {
-    width: 300px;
-    height: 40px;
-    border: 1px solid #e5e4e7;
-    border-radius: 20px;
-    padding: 0 16px;
-    font-size: 14px;
+    flex: 1;
+    min-width: 0;
+    border: none;
     outline: none;
+    height: 40px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4d5163;
+    background: transparent;
 }
 
 .searchInput:focus {
     border-color: #3754db;
 }
+
+.searchIcon {
+    color: black;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+

@@ -1,3 +1,5 @@
+import css from "./TaskForm.module.css";
+
 export interface TaskFormProp {
   onSubmit: (title: string) => void;
 }
@@ -9,9 +11,16 @@ export default function TaskForm({ onSubmit }: TaskFormProp) {
   };
 
   return (
-    <form action={handleSubmit}>
-      <input type="text" name="title" />
-      <button type="submit">create task</button>
+    <form action={handleSubmit} className={css.form}>
+      <input
+        className={css.input}
+        type="text"
+        name="title"
+        placeholder="Task Name"
+      />
+      <button className={css.button} type="submit">
+        Create Task
+      </button>
     </form>
   );
 }

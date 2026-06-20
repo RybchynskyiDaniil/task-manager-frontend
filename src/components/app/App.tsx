@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import TasksPage from "../pages/TasksPage/TasksPage";
 import { PrivateRoute } from "../PrivateRoute/PrivateRoute";
+import SettingsPage from "../pages/SettingsPage/SettingsPage";
 
 export default function App() {
   return (
@@ -18,6 +19,14 @@ export default function App() {
         }
       />
       <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route
+        path="/settings"
+        element={
+          <PrivateRoute>
+            <SettingsPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }
