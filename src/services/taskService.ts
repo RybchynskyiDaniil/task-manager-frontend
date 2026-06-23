@@ -14,9 +14,9 @@ export const fetchTasks = async ():Promise<Task[]> => {
     return response.data.tasks;
 };
 
-export const createTask = async (task: { title: string; priority?: string }) => {
-    const response = await axiosInstance.post('/api/tasks', task);
-    return response.data;
+export const createTask = async (task: { title: string; priority?: string; description?: string; dueDate?: string; }) => {
+  const response = await axiosInstance.post('/api/tasks', task);
+  return response.data;
 }
 
 export const deleteTask = async (id: string) => {

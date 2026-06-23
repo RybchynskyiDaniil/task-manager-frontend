@@ -29,13 +29,23 @@ export default function TasksPage() {
     queryFn: fetchTasks,
   });
   const mutation = useMutation({
-    mutationFn: (title: string) => createTask({ title }),
+    mutationFn: (task: {
+      title: string;
+      priority: string;
+      description: string;
+      dueDate: string;
+    }) => createTask(task),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
-  const handleCreateTask = (title: string) => {
-    mutation.mutate(title);
+  const handleCreateTask = (values: {
+    title: string;
+    priority: string;
+    description: string;
+    dueDate: string;
+  }) => {
+    mutation.mutate(values);
   };
 
   const deleteMutation = useMutation({
@@ -101,8 +111,8 @@ export default function TasksPage() {
               </button>
             </div>
             <TaskForm
-              onSubmit={(title) => {
-                handleCreateTask(title);
+              onSubmit={(values) => {
+                handleCreateTask(values);
                 setIsModalOpen(false);
               }}
             />
@@ -163,6 +173,7 @@ export default function TasksPage() {
                 _id={task._id}
                 title={task.title}
                 status={task.status}
+                dueDate={task.dueDate}
                 onDelete={handleDeleteTask}
                 onUpdate={handleUpdateTask}
               />
