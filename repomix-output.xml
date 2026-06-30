@@ -488,13 +488,104 @@ color: #62667e;
     border: 0.7px solid #a8abbd;
     border-radius: 12px;
     height: 50px;
+    width: 350px;
     padding: 0 16px;
     font-size: 16px;
     outline: none;
+    background: #fff;
+    color: #4d5163;
 }
 
 .input:focus {
     border-color: #3754db;
+}
+
+.contentWrapper{
+display: flex;
+justify-content:flex-start;
+align-items: center;
+gap: 12px;
+width: 350px;
+}
+
+.taskLabel{
+font-weight: 400;
+font-size: 16px;
+color: #2c2e3a;
+justify-content: start;
+display: flex;
+}
+
+.PriorityLabel{
+font-weight: 400;
+font-size: 16px;
+color: #2c2e3a;
+}
+
+.taskLabel,
+.PriorityLabel,
+.label {
+    text-align: left;
+}
+
+
+.select{
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    width: 196px;
+    height: 50px;
+    padding: 0 16px;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #4d5163;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%234d5163' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    appearance: none;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    text-align: left;
+}
+
+.label{
+    font-weight: 400;
+    font-size: 16px;
+    color: #2c2e3a;
+}
+
+.inputDueDate{
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    width: 196px;
+    height: 50px;
+    padding: 0 16px;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #4d5163;
+    color-scheme: light;
+}
+
+.inputDueDate:focus {
+    border-color: #3754db;
+}
+
+.textarea{
+border: 0.70px solid #a8abbd;
+    border-radius: 12px;
+    padding: 16px;
+    width: 350px;
+    height: 120px;
+    background-color: #fff;
+}
+.textarea:focus{
+border-color: #3754db;
 }
 
 .button {
@@ -837,16 +928,23 @@ border: none;
 }
 
 .modalTitle {
-    font-weight: 600;
-    font-size: 24px;
+font-weight: 600;
+font-size: 28px;
+letter-spacing: -0.02em;
+color: #000;
+font-family: "Gelion", sans-serif;
+margin-bottom: 24px;
 }
 
 .modalContentButton {
-    background: none;
-    border: none;
-    font-size: 20px;
+    background: rgb(235, 234, 234);
+    border-radius: 40px;
+    font-size: 18px;
     color: #62667e;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border: none;
 }
 
 
@@ -925,104 +1023,6 @@ margin-bottom: 24px;
     color: black;
     font-size: 24px;
     flex-shrink: 0;
-}
-</file>
-
-<file path="src/components/TaskCard/TaskCard.tsx">
-interface TaskCardProp {
-  _id: string;
-  title: string;
-  status: "pending" | "inProgress" | "completed";
-  onDelete: (id: string) => void;
-  onUpdate: (id: string, status: string) => void;
-}
-
-export default function TaskCard({
-  _id,
-  title,
-  status,
-  onDelete,
-  onUpdate,
-}: TaskCardProp) {
-  const getNextStatus = (current: string) => {
-    if (current === "pending") return "inProgress";
-    if (current === "inProgress") return "completed";
-    return "completed";
-  };
-  return (
-    <div>
-      <div>
-        <p>{title}</p>
-        <span>{status}</span>
-        {status !== "completed" && (
-          <button onClick={() => onUpdate(_id, getNextStatus(status))}>
-            Next status
-          </button>
-        )}
-        <button onClick={() => onDelete(_id)}>Delete</button>
-      </div>
-    </div>
-  );
-}
-</file>
-
-<file path="src/components/TaskForm/TaskForm.tsx">
-import css from "./TaskForm.module.css";
-
-export interface TaskFormValues {
-  title: string;
-  priority: string;
-  description: string;
-  dueDate: string;
-}
-
-export interface TaskFormProp {
-  onSubmit: (values: TaskFormValues) => void;
-}
-
-export default function TaskForm({ onSubmit }: TaskFormProp) {
-  const handleSubmit = (formData: FormData) => {
-    const title = formData.get("title") as string;
-    const priority = formData.get("priority") as string;
-    const description = formData.get("description") as string;
-    const dueDate = formData.get("dueDate") as string;
-    onSubmit({ title, priority, description, dueDate });
-  };
-
-  return (
-    <form action={handleSubmit} className={css.form}>
-      <label className={css.label}>Task Name</label>
-      <input className={css.input} type="text" name="title" />
-
-      <div className={css.row}>
-        <div className={css.field}>
-          <label className={css.label}>Task Priority</label>
-          <select className={css.select} name="priority" defaultValue="low">
-            <option value="low">Less important</option>
-            <option value="medium">Medium</option>
-            <option value="high">Important</option>
-          </select>
-        </div>
-      </div>
-
-      <div className={css.field}>
-        <label className={css.label}>Due Date</label>
-        <input className={css.input} type="date" name="dueDate" />
-      </div>
-
-      <label className={css.label}>Task Description</label>
-      <textarea
-        className={css.textarea}
-        name="description"
-        placeholder="Type your content here...."
-        rows={4}
-      />
-
-      <button className={css.button} type="submit">
-        Create Task
-      </button>
-    </form>
-  );
 }
 </file>
 
@@ -1230,6 +1230,120 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
 }
 </file>
 
+<file path="src/components/TaskCard/TaskCard.tsx">
+interface TaskCardProp {
+  _id: string;
+  title: string;
+  status: "pending" | "inProgress" | "completed";
+  dueDate?: string;
+  onDelete: (id: string) => void;
+  onUpdate: (id: string, status: string) => void;
+}
+
+export default function TaskCard({
+  _id,
+  title,
+  status,
+  dueDate,
+  onDelete,
+  onUpdate,
+}: TaskCardProp) {
+  const getNextStatus = (current: string) => {
+    if (current === "pending") return "inProgress";
+    if (current === "inProgress") return "completed";
+    return "completed";
+  };
+
+  const formattedDate = dueDate
+    ? new Date(dueDate).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+  return (
+    <div>
+      <div>
+        <p>{title}</p>
+        <span>{status}</span>
+        {formattedDate && <p>Due: {formattedDate}</p>}
+        {status !== "completed" && (
+          <button onClick={() => onUpdate(_id, getNextStatus(status))}>
+            Next status
+          </button>
+        )}
+        <button onClick={() => onDelete(_id)}>Delete</button>
+      </div>
+    </div>
+  );
+}
+</file>
+
+<file path="src/components/TaskForm/TaskForm.tsx">
+import css from "./TaskForm.module.css";
+
+export interface TaskFormValues {
+  title: string;
+  priority: string;
+  description: string;
+  dueDate: string;
+}
+
+export interface TaskFormProp {
+  onSubmit: (values: TaskFormValues) => void;
+}
+
+export default function TaskForm({ onSubmit }: TaskFormProp) {
+  const today = new Date().toISOString().split("T")[0];
+  const handleSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+    const priority = formData.get("priority") as string;
+    const description = formData.get("description") as string;
+    const dueDate = formData.get("dueDate") as string;
+    onSubmit({ title, priority, description, dueDate });
+  };
+
+  return (
+    <form action={handleSubmit} className={css.form}>
+      <label className={css.taskLabel}>Task Name</label>
+      <input className={css.input} type="text" name="title" />
+
+      <div className={css.contentWrapper}>
+        <div className={css.field}>
+          <label className={css.PriorityLabel}>Task Priority</label>
+          <select className={css.select} name="priority" defaultValue="low">
+            <option value="low">Less important</option>
+            <option value="medium">Medium</option>
+            <option value="high">Important</option>
+          </select>
+        </div>
+        <div className={css.field}>
+          <label className={css.label}>Due Date</label>
+          <input
+            className={css.inputDueDate}
+            type="date"
+            name="dueDate"
+            defaultValue={today}
+          />
+        </div>
+      </div>
+
+      <label className={css.label}>Task Description</label>
+      <textarea
+        className={css.textarea}
+        name="description"
+        placeholder="Type your content here...."
+        rows={4}
+      />
+
+      <button className={css.button} type="submit">
+        Create Task
+      </button>
+    </form>
+  );
+}
+</file>
+
 <file path="src/index.css">
 :root {
   --text: #6b6375;
@@ -1329,6 +1443,12 @@ h2 {
 p {
   margin: 0;
 }
+label{
+font-family: "Gelion", sans-serif;
+}
+select{
+font-family: "Gelion", sans-serif;
+}
 
 code,
 .counter {
@@ -1343,39 +1463,6 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
-</file>
-
-<file path="src/services/taskService.ts">
-import axiosInstance from '../api/axiosInstance';
-
-export interface Task {
-  _id: string;
-  title: string;
-  description?: string;
-  status: 'pending' | 'inProgress' | 'completed';
-  priority: 'low' | 'medium' | 'high';
-  dueDate?: string;
-};
-
-export const fetchTasks = async ():Promise<Task[]> => {
-    const response = await axiosInstance.get('/api/tasks');
-    return response.data.tasks;
-};
-
-export const createTask = async (task: { title: string; priority?: string; description?: string; dueDate?: string; }) => {
-  const response = await axiosInstance.post('/api/tasks', task);
-  return response.data;
-}
-
-export const deleteTask = async (id: string) => {
-    const response = await axiosInstance.delete(`/api/tasks/${id}`)
-    return response
-}
-
-export const updateTask = async (id: string, status: string) => {
-    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
-    return response.data
 }
 </file>
 
@@ -1586,6 +1673,39 @@ export default function RegisterPage() {
 }
 </file>
 
+<file path="src/services/taskService.ts">
+import axiosInstance from '../api/axiosInstance';
+
+export interface Task {
+  _id: string;
+  title: string;
+  description?: string;
+  status: 'pending' | 'inProgress' | 'completed';
+  priority: 'low' | 'medium' | 'high';
+  dueDate?: string;
+};
+
+export const fetchTasks = async ():Promise<Task[]> => {
+    const response = await axiosInstance.get('/api/tasks');
+    return response.data.tasks;
+};
+
+export const createTask = async (task: { title: string; priority?: string; description?: string; dueDate?: string; }) => {
+  const response = await axiosInstance.post('/api/tasks', task);
+  return response.data;
+}
+
+export const deleteTask = async (id: string) => {
+    const response = await axiosInstance.delete(`/api/tasks/${id}`)
+    return response
+}
+
+export const updateTask = async (id: string, status: string) => {
+    const response = await axiosInstance.patch(`/api/tasks/${id}`, {status});
+    return response.data
+}
+</file>
+
 <file path="src/components/pages/TasksPage/TasksPage.tsx">
 import css from "./TasksPage.module.css";
 import TaskCard from "../../TaskCard/TaskCard";
@@ -1762,6 +1882,7 @@ export default function TasksPage() {
                 _id={task._id}
                 title={task.title}
                 status={task.status}
+                dueDate={task.dueDate}
                 onDelete={handleDeleteTask}
                 onUpdate={handleUpdateTask}
               />

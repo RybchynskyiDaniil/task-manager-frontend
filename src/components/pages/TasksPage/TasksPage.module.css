@@ -27,16 +27,23 @@
 }
 
 .modalTitle {
-    font-weight: 600;
-    font-size: 24px;
+font-weight: 600;
+font-size: 28px;
+letter-spacing: -0.02em;
+color: #000;
+font-family: "Gelion", sans-serif;
+margin-bottom: 24px;
 }
 
 .modalContentButton {
-    background: none;
-    border: none;
-    font-size: 20px;
+    background: rgb(235, 234, 234);
+    border-radius: 40px;
+    font-size: 18px;
     color: #62667e;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border: none;
 }
 
 

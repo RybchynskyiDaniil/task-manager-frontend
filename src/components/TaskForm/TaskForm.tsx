@@ -12,6 +12,7 @@ export interface TaskFormProp {
 }
 
 export default function TaskForm({ onSubmit }: TaskFormProp) {
+  const today = new Date().toISOString().split("T")[0];
   const handleSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const priority = formData.get("priority") as string;
@@ -22,23 +23,27 @@ export default function TaskForm({ onSubmit }: TaskFormProp) {
 
   return (
     <form action={handleSubmit} className={css.form}>
-      <label className={css.label}>Task Name</label>
+      <label className={css.taskLabel}>Task Name</label>
       <input className={css.input} type="text" name="title" />
 
-      <div className={css.row}>
+      <div className={css.contentWrapper}>
         <div className={css.field}>
-          <label className={css.label}>Task Priority</label>
+          <label className={css.PriorityLabel}>Task Priority</label>
           <select className={css.select} name="priority" defaultValue="low">
             <option value="low">Less important</option>
             <option value="medium">Medium</option>
             <option value="high">Important</option>
           </select>
         </div>
-      </div>
-
-      <div className={css.field}>
-        <label className={css.label}>Due Date</label>
-        <input className={css.input} type="date" name="dueDate" />
+        <div className={css.field}>
+          <label className={css.label}>Due Date</label>
+          <input
+            className={css.inputDueDate}
+            type="date"
+            name="dueDate"
+            defaultValue={today}
+          />
+        </div>
       </div>
 
       <label className={css.label}>Task Description</label>

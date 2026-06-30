@@ -96,6 +96,12 @@ h2 {
 p {
   margin: 0;
 }
+label{
+font-family: "Gelion", sans-serif;
+}
+select{
+font-family: "Gelion", sans-serif;
+}
 
 code,
 .counter {
