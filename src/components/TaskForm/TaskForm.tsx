@@ -24,7 +24,7 @@ export default function TaskForm({ onSubmit }: TaskFormProp) {
   return (
     <form action={handleSubmit} className={css.form}>
       <label className={css.taskLabel}>Task Name</label>
-      <input className={css.input} type="text" name="title" />
+      <input className={css.input} type="text" name="title" required />
 
       <div className={css.contentWrapper}>
         <div className={css.field}>

@@ -17,15 +17,21 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
       <p className={css.underTitle}>It’s Simpe and Easy!!</p>
       <div className={css.container}>
         <label className={css.label}>Fullname</label>
-        <input className={css.input} type="text" name="name" />
+        <input className={css.input} type="text" name="name" required />
       </div>
       <div className={css.container}>
         <label className={css.label}>Email Address</label>
-        <input className={css.input} type="email" name="email" />
+        <input className={css.input} type="email" name="email" required />
       </div>
       <div className={css.container}>
         <label className={css.label}>Enter A Password</label>
-        <input className={css.input} type="password" name="password" />
+        <input
+          className={css.input}
+          type="password"
+          name="password"
+          required
+          minLength={6}
+        />
       </div>
 
       <button className={css.button} type="submit">

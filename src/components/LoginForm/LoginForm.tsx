@@ -21,11 +21,18 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
           type="email"
           name="email"
           placeholder="example@gmail.com"
+          required
         />
       </div>
       <div className={css.container}>
         <label className={css.label}>Enter Your Password</label>
-        <input className={css.input} type="password" name="password" />
+        <input
+          className={css.input}
+          type="password"
+          name="password"
+          required
+          minLength={6}
+        />
       </div>
       <button className={css.button} type="submit">
         Log in

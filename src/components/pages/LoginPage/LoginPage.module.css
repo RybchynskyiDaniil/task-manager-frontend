@@ -90,3 +90,17 @@
     max-width: 400px;
     margin: 0;
 }
+
+.statusMessage {
+    text-align: center;
+    font-size: 14px;
+    color: #6d6c6c;
+    margin-top: 16px;
+}
+
+.statusError {
+    text-align: center;
+    font-size: 14px;
+    color: #d84343;
+    margin-top: 16px;
+}

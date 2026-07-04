@@ -44,8 +44,8 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Invalid email or password</p>}
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && <p className={css.statusError}>Invalid email or password</p>}
     </>
   );
 }

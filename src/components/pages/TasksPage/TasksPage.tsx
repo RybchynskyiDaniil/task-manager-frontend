@@ -80,8 +80,8 @@ export default function TasksPage() {
       return task.title.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
-  if (isLoading) return <p>Loading tasks...</p>;
-  if (isError) return <p>Something went wrong</p>;
+  if (isLoading) return <p className={css.pageLoading}>Loading tasks...</p>;
+  if (isError) return <p className={css.pageError}>Something went wrong</p>;
 
   return (
     <>
@@ -140,10 +140,15 @@ export default function TasksPage() {
         <>
           <div className={css.headerRow}>
             <div>
-              <h2>Tasks</h2>
-              <p>Your tasks in your space.</p>
+              <h2 className={css.pageTitle}>Tasks</h2>
+              <p className={css.pageSubtitle}>Your tasks in your space.</p>
             </div>
-            <button onClick={() => setIsModalOpen(true)}>Create Task</button>
+            <button
+              className={css.createButton}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Create Task
+            </button>
           </div>
 
           <div className={css.filtersRow}>
@@ -172,7 +177,9 @@ export default function TasksPage() {
                 key={task._id}
                 _id={task._id}
                 title={task.title}
+                description={task.description}
                 status={task.status}
+                priority={task.priority}
                 dueDate={task.dueDate}
                 onDelete={handleDeleteTask}
                 onUpdate={handleUpdateTask}

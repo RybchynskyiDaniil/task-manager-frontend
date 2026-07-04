@@ -27,16 +27,13 @@ export default function Header() {
         <button onClick={() => navigate("/tasks")} className={css.navBtn}>
           Tasks
         </button>
-        <button onClick={() => navigate("/settings")} className={css.navBtn}>
-          Settings
-        </button>
         <button onClick={handleLogout} className={css.logoutBtn}>
           Logout
         </button>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>something went wrong</p>}
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && <p className={css.statusError}>something went wrong</p>}
     </header>
   );
 }

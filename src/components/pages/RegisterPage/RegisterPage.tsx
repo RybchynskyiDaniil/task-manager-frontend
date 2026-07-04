@@ -48,8 +48,10 @@ export default function RegisterPage() {
           <RegisterForm onSubmit={handleRegister} />
         </div>
       </div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>fails to meet the requirements</p>}
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && (
+        <p className={css.statusError}>fails to meet the requirements</p>
+      )}
     </>
   );
 }

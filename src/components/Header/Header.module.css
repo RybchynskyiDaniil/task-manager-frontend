@@ -2,8 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 40px;
+    padding: 16px 47px;
     border-bottom: 1px solid #e5e4e7;
+    margin-bottom: 25px;
 }
 
 .logo {
@@ -47,4 +48,16 @@ background: #f4f5ff;
 
 .logoutBtn:hover {
     background: #f4f5ff;
+}
+
+.statusMessage {
+    font-size: 13px;
+    color: #6d6c6c;
+    margin-left: 12px;
+}
+
+.statusError {
+    font-size: 13px;
+    color: #d84343;
+    margin-left: 12px;
 }

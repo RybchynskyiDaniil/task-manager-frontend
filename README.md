@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fullstack task management application: user registration/authentication, task creation with priority and due date, status filtering, and search.
 
-Currently, two official plugins are available:
+🔗 **Live demo:** [link after deployment]
+🔗 **Backend repo:** [link to backend repository]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshots
 
-## React Compiler
+![Tasks page](./screenshots/tasks.png)
+![Create task modal](./screenshots/create-task.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+**Frontend:**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19 + TypeScript
+- Vite
+- React Router
+- TanStack React Query
+- Axios
+- CSS Modules
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Backend:**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js / Express
+- MongoDB / Mongoose
+- JWT (access + refresh tokens, httpOnly cookies)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Features
+
+- Registration and login with JWT authentication (refresh token stored in httpOnly cookie)
+- Protected routes (redirect to `/login` when not authenticated)
+- Task CRUD: create, update status, delete
+- Task priority (Low / Medium / High) with color-coded badges
+- Filtering by status (All / Pending / In Progress / Completed)
+- Search tasks by title
+- Responsive UI built from a Figma design
+
+## Getting Started
+
+Requires Node.js 20+ and a running MongoDB instance (local or Atlas).
+
+```bash
+# clone the repository
+git clone https://github.com/RybchynskyiDaniil/task-manager-frontend.git
+cd task-manager-frontend
+
+# install dependencies
+npm install
+
+# create .env file (see .env.example)
+cp .env.example .env
+
+# start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The backend needs to be started separately — see the [backend README](link).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Environment Variables
+
+## Project Structure
+
+src/
+├── api/ # axios instance
+├── components/
+│ ├── app/ # routing
+│ ├── pages/ # pages (Login, Register, Tasks, Settings)
+│ ├── TaskCard/ # task card component
+│ ├── TaskForm/ # task creation form
+│ └── ...
+├── services/ # HTTP requests (authService, taskService)
+└── main.tsx
+
+## Author
+
+**Daniil**
+[GitHub](https://github.com/RybchynskyiDaniil/task-manager-frontend)
+🔗 **Backend repo:** [Task Management Backend](https://github.com/RybchynskyiDaniil/task-management-backend)
+/ [LinkedIn](https://www.linkedin.com/in/daniil-rybchynskyi/)

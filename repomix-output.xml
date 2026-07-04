@@ -298,8 +298,9 @@ export default function EmptyTasksIcon() {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 40px;
+    padding: 16px 47px;
     border-bottom: 1px solid #e5e4e7;
+    margin-bottom: 25px;
 }
 
 .logo {
@@ -343,6 +344,18 @@ background: #f4f5ff;
 
 .logoutBtn:hover {
     background: #f4f5ff;
+}
+
+.statusMessage {
+    font-size: 13px;
+    color: #6d6c6c;
+    margin-left: 12px;
+}
+
+.statusError {
+    font-size: 13px;
+    color: #d84343;
+    margin-left: 12px;
 }
 </file>
 
@@ -474,129 +487,105 @@ color: #62667e;
 </file>
 
 <file path="src/components/TaskCard/TaskCard.module.css">
-
-</file>
-
-<file path="src/components/TaskForm/TaskForm.module.css">
-.form {
+.card {
+    border: 1px solid #e5e4e7;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
+    min-width: 0;
+    overflow: hidden;
 }
 
-.input {
-    border: 0.7px solid #a8abbd;
-    border-radius: 12px;
-    height: 50px;
-    width: 350px;
-    padding: 0 16px;
-    font-size: 16px;
-    outline: none;
-    background: #fff;
-    color: #4d5163;
-}
-
-.input:focus {
-    border-color: #3754db;
-}
-
-.contentWrapper{
-display: flex;
-justify-content:flex-start;
-align-items: center;
-gap: 12px;
-width: 350px;
-}
-
-.taskLabel{
-font-weight: 400;
-font-size: 16px;
-color: #2c2e3a;
-justify-content: start;
-display: flex;
-}
-
-.PriorityLabel{
-font-weight: 400;
-font-size: 16px;
-color: #2c2e3a;
-}
-
-.taskLabel,
-.PriorityLabel,
-.label {
-    text-align: left;
-}
-
-
-.select{
-    border: 0.7px solid #a8abbd;
-    border-radius: 12px;
-    width: 196px;
-    height: 50px;
-    padding: 0 16px;
-    font-size: 16px;
-    outline: none;
-    background: #fff;
-    color: #4d5163;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%234d5163' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    appearance: none;
-}
-
-.field {
+.topRow {
     display: flex;
-    flex-direction: column;
-    gap: 14px;
-    flex: 1;
-    text-align: left;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
 }
 
-.label{
-    font-weight: 400;
-    font-size: 16px;
-    color: #2c2e3a;
+.title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #101c56;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-.inputDueDate{
-    border: 0.7px solid #a8abbd;
-    border-radius: 12px;
-    width: 196px;
-    height: 50px;
-    padding: 0 16px;
-    font-size: 16px;
-    outline: none;
-    background: #fff;
-    color: #4d5163;
-    color-scheme: light;
+.description {
+    font-size: 15px;
+    color: #808080;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-height: 60px;
+    overflow-y: auto;
+    padding-right: 4px;
 }
 
-.inputDueDate:focus {
-    border-color: #3754db;
+.description::-webkit-scrollbar {
+    width: 4px;
 }
 
-.textarea{
-border: 0.70px solid #a8abbd;
-    border-radius: 12px;
-    padding: 16px;
-    width: 350px;
-    height: 120px;
-    background-color: #fff;
-}
-.textarea:focus{
-border-color: #3754db;
+.description::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 4px;
 }
 
-.button {
-    border-radius: 12px;
-    height: 50px;
+.description::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dueDate {
+    font-size: 14px;
+    color: #6d6c6c;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 8px;
+}
+
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.priorityBadge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.actionBtn {
+    border-radius: 8px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
     background: #3754db;
     color: #fff;
+}
+
+.deleteBtn {
+    border-radius: 8px;
     border: none;
+    padding: 8px 14px;
+    font-size: 14px;
     font-weight: 500;
-    font-size: 16px;
     cursor: pointer;
+    background: #fdeaea;
+    color: #d84343;
 }
 </file>
 
@@ -730,8 +719,8 @@ export default function Header() {
         </button>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>something went wrong</p>}
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && <p className={css.statusError}>something went wrong</p>}
     </header>
   );
 }
@@ -897,132 +886,149 @@ border: none;
     position: relative;
     z-index: 1;
 }
+
+.statusMessage {
+    text-align: center;
+    font-size: 14px;
+    color: #6d6c6c;
+    margin-top: 16px;
+}
+
+.statusError {
+    text-align: center;
+    font-size: 14px;
+    color: #d84343;
+    margin-top: 16px;
+}
 </file>
 
-<file path="src/components/pages/TasksPage/TasksPage.module.css">
-.modalOverlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-}
-
-.modalContent {
-    width: 500px;
-    height: 600px;
-    border-radius: 20px;
-    background: #fff;
-    padding: 32px;
+<file path="src/components/TaskForm/TaskForm.module.css">
+.form {
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
-.modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.modalTitle {
-font-weight: 600;
-font-size: 28px;
-letter-spacing: -0.02em;
-color: #000;
-font-family: "Gelion", sans-serif;
-margin-bottom: 24px;
-}
-
-.modalContentButton {
-    background: rgb(235, 234, 234);
-    border-radius: 40px;
-    font-size: 18px;
-    color: #62667e;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border: none;
-}
-
-
-
-
-
-.emptyIcon {
-    margin-bottom: 48px;
-}
-
-.emptyTitle{
-font-weight: 600;
-font-size: 28px;
-letter-spacing: -0.02em;
-color: #000;
-}
-
-.emptySubTitle{
-font-weight: 400;
-font-size: 16px;
-letter-spacing: -0.02em;
-color: #6d6c6c;
-margin-bottom: 24px;
-}
-
-.emptyCreateButton {
-    border-radius: 12px;
-    width: 213px;
-    height: 57px;
-    background: #3754db;
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-}
-
-
-.searchBar {
-    padding: 25px 47px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.searchWrapper {
-    display: flex;
-    align-items: center;
-    width: 350px;
+.input {
     border: 0.7px solid #a8abbd;
     border-radius: 12px;
-    background-color: #fff;
+    height: 50px;
+    width: 350px;
     padding: 0 16px;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #4d5163;
 }
-.searchWrapper:focus-within {
+
+.input:focus {
     border-color: #3754db;
 }
 
-.searchInput {
-    flex: 1;
-    min-width: 0;
-    border: none;
+.contentWrapper{
+display: flex;
+justify-content:flex-start;
+align-items: center;
+gap: 12px;
+width: 350px;
+}
+
+.taskLabel{
+font-weight: 400;
+font-size: 16px;
+color: #2c2e3a;
+justify-content: start;
+display: flex;
+}
+
+.PriorityLabel{
+font-weight: 400;
+font-size: 16px;
+color: #2c2e3a;
+}
+
+.taskLabel,
+.PriorityLabel,
+.label {
+    text-align: left;
+}
+
+
+.select{
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    width: 196px;
+    height: 50px;
+    padding: 0 16px;
+    font-size: 16px;
     outline: none;
-    height: 40px;
+    background: #fff;
+    color: #4d5163;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%234d5163' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    appearance: none;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    text-align: left;
+}
+
+.label{
     font-weight: 400;
     font-size: 16px;
-    color: #4d5163;
-    background: transparent;
+    color: #2c2e3a;
 }
 
-.searchInput:focus {
+.inputDueDate{
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    width: 196px;
+    height: 50px;
+    padding: 0 16px;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #4d5163;
+    color-scheme: light;
+}
+
+.inputDueDate:focus {
     border-color: #3754db;
 }
 
-.searchIcon {
-    color: black;
-    font-size: 24px;
-    flex-shrink: 0;
+.textarea {
+    border: 0.70px solid #a8abbd;
+    border-radius: 12px;
+    padding: 16px;
+    width: 350px;
+    height: 120px;
+    background-color: #fff;
+    font-size: 16px;
+    font-family: inherit;
+    color: #4d5163;
+    outline: none;
+    resize: none;
+}
+
+.textarea:focus {
+    border-color: #3754db;
+}
+
+.button {
+    border-radius: 12px;
+    height: 50px;
+    background: #3754db;
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    width: 202px;
 }
 </file>
 
@@ -1177,17 +1183,234 @@ export default function LoginForm({ onSubmit }: LoginFormProp) {
           type="email"
           name="email"
           placeholder="example@gmail.com"
+          required
         />
       </div>
       <div className={css.container}>
         <label className={css.label}>Enter Your Password</label>
-        <input className={css.input} type="password" name="password" />
+        <input
+          className={css.input}
+          type="password"
+          name="password"
+          required
+          minLength={6}
+        />
       </div>
       <button className={css.button} type="submit">
         Log in
       </button>
     </form>
   );
+}
+</file>
+
+<file path="src/components/pages/TasksPage/TasksPage.module.css">
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modalContent {
+    width: 500px;
+    height: 600px;
+    border-radius: 20px;
+    background: #fff;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modalTitle {
+font-weight: 600;
+font-size: 28px;
+letter-spacing: -0.02em;
+color: #000;
+font-family: "Gelion", sans-serif;
+margin-bottom: 24px;
+}
+
+.modalContentButton {
+    background: rgb(235, 234, 234);
+    border-radius: 40px;
+    font-size: 18px;
+    color: #62667e;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border: none;
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+
+
+.emptyIcon {
+    margin-bottom: 48px;
+}
+
+.emptyTitle{
+font-weight: 600;
+font-size: 28px;
+letter-spacing: -0.02em;
+color: #000;
+}
+
+.emptySubTitle{
+font-weight: 400;
+font-size: 16px;
+letter-spacing: -0.02em;
+color: #6d6c6c;
+margin-bottom: 24px;
+}
+
+.emptyCreateButton {
+    border-radius: 12px;
+    width: 213px;
+    height: 57px;
+    background: #3754db;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+
+.searchBar {
+    padding: 0 47px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    width: 350px;
+    border: 0.7px solid #a8abbd;
+    border-radius: 12px;
+    background-color: #fff;
+    padding: 0 16px;
+}
+.searchWrapper:focus-within {
+    border-color: #3754db;
+}
+
+.searchInput {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    height: 40px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #4d5163;
+    background: transparent;
+}
+
+.searchInput:focus {
+    border-color: #3754db;
+}
+
+.searchIcon {
+    color: black;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.headerRow{
+display: flex;
+justify-content: space-between;
+padding: 0 47px;
+align-items: center;
+margin-bottom: 40px;
+text-align: start;
+}
+
+.pageTitle{
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: #101c56;
+    margin:0 0 12px 0;
+}
+
+.pageSubtitle{
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: #636363;
+}
+
+.createButton{
+    border-radius: 12px;
+    width: 169px;
+    height: 49px;
+    background: #3754db;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
+
+.filtersRow {
+    display: flex;
+    gap: 28px;
+    padding: 0 47px;
+    border-bottom: 1px solid #e5e4e7;
+    margin-bottom: 20px;
+}
+
+.filterBtn {
+    background: none;
+    border: none;
+    padding: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #808080;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    letter-spacing: -0.02em;
+}
+
+.filterActive {
+    background: none;
+    border: none;
+    padding: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3754db;
+    cursor: pointer;
+    border-bottom: 2px solid #3754db;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 0 47px;
 }
 </file>
 
@@ -1211,15 +1434,21 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
       <p className={css.underTitle}>It’s Simpe and Easy!!</p>
       <div className={css.container}>
         <label className={css.label}>Fullname</label>
-        <input className={css.input} type="text" name="name" />
+        <input className={css.input} type="text" name="name" required />
       </div>
       <div className={css.container}>
         <label className={css.label}>Email Address</label>
-        <input className={css.input} type="email" name="email" />
+        <input className={css.input} type="email" name="email" required />
       </div>
       <div className={css.container}>
         <label className={css.label}>Enter A Password</label>
-        <input className={css.input} type="password" name="password" />
+        <input
+          className={css.input}
+          type="password"
+          name="password"
+          required
+          minLength={6}
+        />
       </div>
 
       <button className={css.button} type="submit">
@@ -1231,19 +1460,43 @@ export default function RegisterForm({ onSubmit }: RegisterFormProp) {
 </file>
 
 <file path="src/components/TaskCard/TaskCard.tsx">
+import css from "./TaskCard.module.css";
+
 interface TaskCardProp {
   _id: string;
   title: string;
+  description?: string;
   status: "pending" | "inProgress" | "completed";
+  priority?: "low" | "medium" | "high";
   dueDate?: string;
   onDelete: (id: string) => void;
   onUpdate: (id: string, status: string) => void;
 }
 
+const priorityColors: Record<
+  string,
+  { bg: string; text: string; label: string }
+> = {
+  low: { bg: "#eef1f8", text: "#5c6270", label: "Less important" },
+  medium: { bg: "#fdeecb", text: "#8a6d00", label: "Medium" },
+  high: { bg: "#fde2e2", text: "#c62828", label: "Important" },
+};
+
+const statusColors: Record<
+  string,
+  { bg: string; text: string; label: string }
+> = {
+  pending: { bg: "#fff3cd", text: "#8a6d00", label: "Pending" },
+  inProgress: { bg: "#dbe4ff", text: "#3754db", label: "In Progress" },
+  completed: { bg: "#d9f7e8", text: "#00944f", label: "Completed" },
+};
+
 export default function TaskCard({
   _id,
   title,
+  description,
   status,
+  priority,
   dueDate,
   onDelete,
   onUpdate,
@@ -1261,20 +1514,272 @@ export default function TaskCard({
         year: "numeric",
       })
     : null;
+
+  const { bg, text, label } = statusColors[status];
+
   return (
-    <div>
-      <div>
-        <p>{title}</p>
-        <span>{status}</span>
-        {formattedDate && <p>Due: {formattedDate}</p>}
+    <div className={css.card}>
+      <div className={css.topRow}>
+        <span
+          className={css.badge}
+          style={{ backgroundColor: bg, color: text }}
+        >
+          {label}
+        </span>
+        {priority && priorityColors[priority] && (
+          <span
+            className={css.priorityBadge}
+            style={{
+              backgroundColor: priorityColors[priority].bg,
+              color: priorityColors[priority].text,
+            }}
+          >
+            {priorityColors[priority].label}
+          </span>
+        )}
+      </div>
+
+      <p className={css.title}>{title}</p>
+      {description && <p className={css.description}>{description}</p>}
+      {formattedDate && <p className={css.dueDate}>Due: {formattedDate}</p>}
+
+      <div className={css.actions}>
         {status !== "completed" && (
-          <button onClick={() => onUpdate(_id, getNextStatus(status))}>
+          <button
+            className={css.actionBtn}
+            onClick={() => onUpdate(_id, getNextStatus(status))}
+          >
             Next status
           </button>
         )}
-        <button onClick={() => onDelete(_id)}>Delete</button>
+        <button className={css.deleteBtn} onClick={() => onDelete(_id)}>
+          Delete
+        </button>
       </div>
     </div>
+  );
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.module.css">
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.leftPanel {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #ffffff;
+    padding-left: 120px;
+}
+
+.rightWrapper {
+    flex: 1;
+    padding: 10px 10px 10px 0;
+}
+
+.rightPanel {
+    height: 100%;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background: #3754db;
+    padding: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.rightPanel::before {
+    content: '';
+    position: absolute;
+    left: -200px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 80px solid #fbbe37;
+}
+
+.rightPanel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 60px 50px;
+    transform: rotate(45deg) scale(2);
+    z-index: 0;
+}
+
+.secondaryButton {
+    border: 1.70px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    width: 180px;
+    height: 48px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #3754db;
+    cursor: pointer;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.rightCenter {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 100px;
+}
+
+.leftPanelTitle {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: right;
+    color: #fff;
+    max-width: 400px;
+    margin: 0;
+}
+
+.statusMessage {
+    text-align: center;
+    font-size: 14px;
+    color: #6d6c6c;
+    margin-top: 16px;
+}
+
+.statusError {
+    text-align: center;
+    font-size: 14px;
+    color: #d84343;
+    margin-top: 16px;
+}
+</file>
+
+<file path="src/components/pages/LoginPage/LoginPage.tsx">
+import LoginForm from "../../LoginForm/LoginForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../services/authService";
+import css from "./LoginPage.module.css";
+
+export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await login(email, password);
+      navigate("/tasks");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return (
+    <>
+      <div className={css.container}>
+        <div className={css.leftPanel}>
+          <LoginForm onSubmit={handleLogin} />
+        </div>
+
+        <div className={css.rightWrapper}>
+          <div className={css.rightPanel}>
+            <button
+              className={css.secondaryButton}
+              onClick={() => navigate("/register")}
+            >
+              Create Account
+            </button>
+            <div className={css.rightCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && <p className={css.statusError}>Invalid email or password</p>}
+    </>
+  );
+}
+</file>
+
+<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
+import RegisterForm from "../../RegisterForm/RegisterForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { register } from "../../../services/authService";
+import css from "./RegisterPage.module.css";
+
+export default function RegisterPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
+  const handleRegister = async (
+    username: string,
+    email: string,
+    password: string,
+  ) => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await register(username, email, password);
+      navigate("/login");
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <div className={css.container}>
+        <div className={css.leftPanelWrapper}>
+          <div className={css.leftPanel}>
+            <button
+              className={css.loginButton}
+              onClick={() => navigate("/login")}
+            >
+              Log in
+            </button>
+            <div className={css.leftCenter}>
+              <h2 className={css.leftPanelTitle}>
+                Take your productivity to the next level.
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div className={css.rightPanel}>
+          <RegisterForm onSubmit={handleRegister} />
+        </div>
+      </div>
+      {isLoading && <p className={css.statusMessage}>Loading...</p>}
+      {isError && (
+        <p className={css.statusError}>fails to meet the requirements</p>
+      )}
+    </>
   );
 }
 </file>
@@ -1306,7 +1811,7 @@ export default function TaskForm({ onSubmit }: TaskFormProp) {
   return (
     <form action={handleSubmit} className={css.form}>
       <label className={css.taskLabel}>Task Name</label>
-      <input className={css.input} type="text" name="title" />
+      <input className={css.input} type="text" name="title" required />
 
       <div className={css.contentWrapper}>
         <div className={css.field}>
@@ -1463,213 +1968,6 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
-</file>
-
-<file path="src/components/pages/LoginPage/LoginPage.module.css">
-.container {
-    display: flex;
-    min-height: 100vh;
-    width: 100%;
-}
-
-.leftPanel {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background: #ffffff;
-    padding-left: 120px;
-}
-
-.rightWrapper {
-    flex: 1;
-    padding: 10px 10px 10px 0;
-}
-
-.rightPanel {
-    height: 100%;
-    border-radius: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    box-sizing: border-box;
-    background: #3754db;
-    padding: 24px;
-    overflow: hidden;
-    position: relative;
-}
-
-.rightPanel::before {
-    content: '';
-    position: absolute;
-    left: -200px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 80px solid #fbbe37;
-}
-
-.rightPanel::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 60px 50px;
-    transform: rotate(45deg) scale(2);
-    z-index: 0;
-}
-
-.secondaryButton {
-    border: 1.70px solid rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    width: 180px;
-    height: 48px;
-    background: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    color: #3754db;
-    cursor: pointer;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-}
-
-.rightCenter {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 100px;
-}
-
-.leftPanelTitle {
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    text-align: right;
-    color: #fff;
-    max-width: 400px;
-    margin: 0;
-}
-</file>
-
-<file path="src/components/pages/LoginPage/LoginPage.tsx">
-import LoginForm from "../../LoginForm/LoginForm";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login } from "../../../services/authService";
-import css from "./LoginPage.module.css";
-
-export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogin = async (email: string, password: string) => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      await login(email, password);
-      navigate("/tasks");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  return (
-    <>
-      <div className={css.container}>
-        <div className={css.leftPanel}>
-          <LoginForm onSubmit={handleLogin} />
-        </div>
-
-        <div className={css.rightWrapper}>
-          <div className={css.rightPanel}>
-            <button
-              className={css.secondaryButton}
-              onClick={() => navigate("/register")}
-            >
-              Create Account
-            </button>
-            <div className={css.rightCenter}>
-              <h2 className={css.leftPanelTitle}>
-                Take your productivity to the next level.
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Invalid email or password</p>}
-    </>
-  );
-}
-</file>
-
-<file path="src/components/pages/RegisterPage/RegisterPage.tsx">
-import RegisterForm from "../../RegisterForm/RegisterForm";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { register } from "../../../services/authService";
-import css from "./RegisterPage.module.css";
-
-export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-  const handleRegister = async (
-    username: string,
-    email: string,
-    password: string,
-  ) => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      await register(username, email, password);
-      navigate("/login");
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <>
-      <div className={css.container}>
-        <div className={css.leftPanelWrapper}>
-          <div className={css.leftPanel}>
-            <button
-              className={css.loginButton}
-              onClick={() => navigate("/login")}
-            >
-              Log in
-            </button>
-            <div className={css.leftCenter}>
-              <h2 className={css.leftPanelTitle}>
-                Take your productivity to the next level.
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div className={css.rightPanel}>
-          <RegisterForm onSubmit={handleRegister} />
-        </div>
-      </div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>fails to meet the requirements</p>}
-    </>
-  );
 }
 </file>
 
@@ -1849,10 +2147,15 @@ export default function TasksPage() {
         <>
           <div className={css.headerRow}>
             <div>
-              <h2>Tasks</h2>
-              <p>Your tasks in your space.</p>
+              <h2 className={css.pageTitle}>Tasks</h2>
+              <p className={css.pageSubtitle}>Your tasks in your space.</p>
             </div>
-            <button onClick={() => setIsModalOpen(true)}>Create Task</button>
+            <button
+              className={css.createButton}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Create Task
+            </button>
           </div>
 
           <div className={css.filtersRow}>
@@ -1881,7 +2184,9 @@ export default function TasksPage() {
                 key={task._id}
                 _id={task._id}
                 title={task.title}
+                description={task.description}
                 status={task.status}
+                priority={task.priority}
                 dueDate={task.dueDate}
                 onDelete={handleDeleteTask}
                 onUpdate={handleUpdateTask}
