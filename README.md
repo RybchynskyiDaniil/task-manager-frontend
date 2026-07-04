@@ -3,7 +3,7 @@
 A fullstack task management application: user registration/authentication, task creation with priority and due date, status filtering, and search.
 
 🔗 **Live demo:** [link after deployment]
-🔗 **Backend repo:** [link to backend repository]
+🔗 **Backend repo:** [Task Management Backend](https://github.com/RybchynskyiDaniil/task-management-backend)
 
 ## Screenshots
 
@@ -78,6 +78,4 @@ src/
 ## Author
 
 **Daniil**
-[GitHub](https://github.com/RybchynskyiDaniil/task-manager-frontend)
-🔗 **Backend repo:** [Task Management Backend](https://github.com/RybchynskyiDaniil/task-management-backend)
-/ [LinkedIn](https://www.linkedin.com/in/daniil-rybchynskyi/)
+[GitHub](https://github.com/RybchynskyiDaniil/task-manager-frontend) / [LinkedIn](https://www.linkedin.com/in/daniil-rybchynskyi/)
